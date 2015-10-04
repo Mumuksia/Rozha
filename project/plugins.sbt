@@ -18,3 +18,5 @@ addSbtPlugin("com.typesafe.sbt" % "sbt-mocha" % "1.1.0")
 addSbtPlugin("com.github.ddispaltro" % "sbt-reactjs" % "0.5.0")
 
 addSbtPlugin("com.github.mpeltonen" % "sbt-idea" % "1.6.0")
+
+

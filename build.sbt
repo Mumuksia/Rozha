@@ -18,7 +18,9 @@ libraryDependencies ++= Seq(
   "org.webjars" %% "webjars-play" % "2.4.0-1",
   "org.webjars" % "react" % "0.13.3",
   "org.webjars" % "marked" % "0.3.2",
-  "org.webjars" % "jquery" % "2.1.4"
+  "org.webjars" % "jquery" % "2.1.4",
+  "org.scalatestplus" % "play_2.11" % "1.2.0" % "test",
+  "org.scalatest" % "scalatest_2.11" % "2.2.4" % "test"
 )
 
 
