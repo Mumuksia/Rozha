@@ -4,8 +4,11 @@ import java.util.UUID
 
 import play.api.libs.json.{JsArray, Json}
 import play.api.mvc._
+import services.FileService
 
 class Application extends Controller {
+
+  val fileService = new FileService
 
   // serves the web page
   def index = Action {
@@ -38,6 +41,11 @@ class Application extends Controller {
       JSON_KEY_TEXT -> text)
     commentsJson = commentsJson :+ newComment
     Ok(newComment)
+  }
+
+  def saveComments = Action {
+    fileService.saveToFile(commentsJson.toString(), "data.txt")
+    Ok(commentsJson)
   }
 
 }
