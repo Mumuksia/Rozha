@@ -12,7 +12,7 @@ class Application extends Controller {
 
   // serves the web page
   def index = Action {
-    Ok(views.html.react())
+    Ok(views.html.rozha())
   }
 
   // The json keys. The 'id' field was added as without it we would get a warning like this:
@@ -46,6 +46,10 @@ class Application extends Controller {
   def saveComments = Action {
     fileService.saveToFile(commentsJson.toString(), "data.txt")
     Ok(commentsJson)
+  }
+  
+  def loadData = Action{
+    Ok(fileService.readFromFile("data.txt"))
   }
 
 }
