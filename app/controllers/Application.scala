@@ -30,6 +30,7 @@ class Application extends Controller {
 
   // Returns the comments list
   def comments = Action {
+    println(commentsJson)
     Ok(commentsJson)
   }
 

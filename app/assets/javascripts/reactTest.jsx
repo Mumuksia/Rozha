@@ -23,6 +23,7 @@ var CommentBox = React.createClass({
     return (
       <div className="commentBox">
         <h1>Comments</h1>
+        <span>{this.state.data}</span>
         <CommentList data={this.state.data} />
         <CommentForm />
       </div>

@@ -6,10 +6,16 @@
 GET         /                     controllers.Application.index
 
 # APIs
-GET         /comments             controllers.Application.comments
+GET         /loadWar             controllers.WarController.loadReservations
+GET         /init             controllers.WarController.initFile
 POST        /comment              controllers.Application.comment(author, text)
 GET         /saveComments         controllers.Application.saveComments
-GET         /loadData             controllers.Application.loadData
+GET         /history             controllers.Application.loadData
+GET         /notes            controllers.Application.comments
+GET         /rules             controllers.Application.comments
+GET         /comments             controllers.Application.comments
+POST         /addReservation            controllers.WarController.addReservation(name, number, approvedBy)
+
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file         controllers.Assets.versioned(path="/public", file: Asset)
