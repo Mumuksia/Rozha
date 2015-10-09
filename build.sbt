@@ -20,7 +20,8 @@ libraryDependencies ++= Seq(
   "org.webjars" % "marked" % "0.3.2",
   "org.webjars" % "jquery" % "2.1.4",
   "org.scalatestplus" % "play_2.11" % "1.2.0" % "test",
-  "org.scalatest" % "scalatest_2.11" % "2.2.4" % "test"
+  "org.scalatest" % "scalatest_2.11" % "2.2.4" % "test",
+  "org.webjars" % "bootstrap" % "3.1.1"
 )
 
 

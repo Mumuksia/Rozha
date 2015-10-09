@@ -38,4 +38,4 @@ var RozhaTabs = React.createClass({
     }
 });
 
-React.render(<Rozha url="http://localhost:9000/loadData" pollInterval={2000} />, rozhaNode);
+React.render(<Rozha url="http://localhost:9000/loadData" pollInterval={2000} />, document.getElementById('rozhaNode'));
