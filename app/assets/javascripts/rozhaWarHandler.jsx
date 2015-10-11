@@ -40,8 +40,7 @@ var CommentList = React.createClass({
     });
 
     return (
-      <div className="commentList"> 
-      <span>test</span>
+      <div className="container">
         {commentNodes}
       </div>
     );
@@ -95,10 +94,11 @@ var Comment = React.createClass({
     var rawMarkup = this.props.name;
 
     return (
-            <div class="row">
-                <div class="col-md-4">{this.props.name}</div>     
-                <div class="col-md-4">{this.props.number}</div> 
-                <div class="col-md-4">{this.props.approvedBy}</div>
+            <div className="row">
+                <div className="col-md-3">{this.props.name}</div>     
+                <div className="col-md-2">{this.props.number}</div> 
+                <div className="col-md-3">{this.props.approvedBy}</div>
+                <div className="col-md-4"></div>
             </div>
     );
   }
