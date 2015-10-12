@@ -7,6 +7,7 @@ GET         /                     controllers.Application.index
 
 # APIs
 GET         /loadWar             controllers.WarController.loadReservations
+GET         /loadNotes             controllers.NoteController.loadNotes
 GET         /init             controllers.WarController.initFile
 POST        /comment              controllers.Application.comment(author, text)
 GET         /saveComments         controllers.Application.saveComments
@@ -15,6 +16,7 @@ GET         /notes            controllers.Application.comments
 GET         /rules             controllers.Application.comments
 GET         /comments             controllers.Application.comments
 POST         /addReservation            controllers.WarController.addReservation(name, number, approvedBy)
+POST         /addNote           controllers.NoteController.addNote(name, note, noteBy)
 
 
 # Map static resources from the /public folder to the /assets URL path
