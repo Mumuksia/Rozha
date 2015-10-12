@@ -11,7 +11,6 @@ import play.api.libs.json.{JsArray, Json, JsObject}
  */
 class FileService {
 
-    val reservationFile = "reservations.txt"
     def saveToFile(row: String, fileName: String){
 
       val writer = new PrintWriter(new File(fileName))
@@ -23,12 +22,8 @@ class FileService {
       Source.fromFile(fileName).mkString
     }
     
-    def saveReservation(row: JsObject){
-        val fileContent = readFromFile(reservationFile)        
-    }
-    
-    def updateReservations(reservationsList: String){
-        saveToFile(reservationsList, reservationFile)        
+    def updateListInFile(itemsList: String, fileName: String){
+        saveToFile(itemsList, fileName)        
     }
     
    def saveJsArrayToFile(arrayData: JsArray, fileName: String){
