@@ -27,6 +27,10 @@ class FileService {
         val fileContent = readFromFile(reservationFile)        
     }
     
+    def updateReservations(reservationsList: String){
+        saveToFile(reservationsList, reservationFile)        
+    }
+    
    def saveJsArrayToFile(arrayData: JsArray, fileName: String){
      saveToFile(JsArray.toString, fileName)
    } 
