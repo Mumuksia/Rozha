@@ -12,6 +12,22 @@ var NotesBox = React.createClass({
       }.bind(this)
     });
   },
+  handleNoteSubmit: function(note) {
+    var noteUrl = "/addNote?noteBy=" + note.noteBy + "&name=" + note.name + "&note=" + note.note;
+
+    $.ajax({
+      url: noteUrl,
+      dataType: 'json',
+      type: 'POST',
+      data: note,
+      success: function(data) {
+        this.setState({data: data});
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
   getInitialState: function() {
     return {data: []};
   },
@@ -24,7 +40,7 @@ var NotesBox = React.createClass({
       <div className="notesBox">
         <h1>Reservations</h1>        
         <NoteList data={this.state.data} />
-        <NoteForm />
+        <NoteForm noNoteSubmit={this.handleNoteSubmit}/>
       </div>
     );
   }
@@ -59,19 +75,7 @@ var NoteForm = React.createClass({
       return;
     }
 
-    var noteUrl = "http://localhost:9000/addNote?noteBy=" + noteBy + "&name=" + name + "&note=" + note;
-    $.ajax({
-          url: noteUrl,
-          method: 'POST',
-          dataType: 'json',
-          cache: false,
-          success: function(data) {
-            console.log(data)
-          }.bind(this),
-          error: function(xhr, status, err) {
-            console.error(noteUrl, status, err);
-          }.bind(this)
-        });
+    this.props.noNoteSubmit({noteBy: noteBy, name: name, note: note});
 
     // clears the form fields
     React.findDOMNode(this.refs.noteBy).value = '';
@@ -108,5 +112,5 @@ var Note = React.createClass({
 });
 
 React.render(
-  <NotesBox url="http://localhost:9000/loadNotes" pollInterval={20000} />,
+  <NotesBox url="/loadNotes" pollInterval={20000} />,
   document.getElementById('notesNode'));

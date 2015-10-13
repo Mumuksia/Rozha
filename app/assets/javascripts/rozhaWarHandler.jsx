@@ -12,6 +12,22 @@ var CommentBox = React.createClass({
       }.bind(this)
     });
   },
+  handleCommentSubmit: function(comment) {
+    var commentUrl = "/addReservation?approvedBy=" + comment.approvedBy + "&name=" + comment.name + "&number=" + comment.number;
+
+    $.ajax({
+      url: commentUrl,
+      dataType: 'json',
+      type: 'POST',
+      data: comment,
+      success: function(data) {
+        this.setState({data: data});
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
   getInitialState: function() {
     return {data: []};
   },
@@ -24,7 +40,7 @@ var CommentBox = React.createClass({
       <div className="commentBox">
         <h1>Reservations</h1>        
         <CommentList data={this.state.data} />
-        <CommentForm />
+        <CommentForm onCommentSubmit={this.handleCommentSubmit} />
       </div>
     );
   }
@@ -57,20 +73,8 @@ var CommentForm = React.createClass({
       return;
     }
 
-    var commentUrl = "http://localhost:9000/addReservation?approvedBy=" + approvedBy + "&name=" + name + "&number=" + number;
-    $.ajax({
-          url: commentUrl,
-          method: 'POST',
-          dataType: 'json',
-          cache: false,
-          success: function(data) {
-            console.log(data)
-          }.bind(this),
-          error: function(xhr, status, err) {
-            console.error(commentUrl, status, err);
-          }.bind(this)
-        });
-
+   this.props.onCommentSubmit({approvedBy: approvedBy, name: name, number: number});
+    
     // clears the form fields
     React.findDOMNode(this.refs.approvedBy).value = '';
     React.findDOMNode(this.refs.name).value = '';
@@ -105,5 +109,5 @@ var Comment = React.createClass({
 });
 
 React.render(
-  <CommentBox url="http://localhost:9000/loadWar" pollInterval={20000} />,
+  <CommentBox url="/loadWar" pollInterval={20000} />,
   document.getElementById('warNode'));
