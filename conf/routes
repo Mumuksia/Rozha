@@ -22,3 +22,12 @@ POST         /addNote           controllers.NoteController.addNote(name, note, n
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file         controllers.Assets.versioned(path="/public", file: Asset)
 GET         /webjars/*file        controllers.WebJarAssets.at(file)
+
+GET     /standard/messages/main               controllers.Messages.main
+GET     /standard/messages/list               controllers.Messages.list
+GET     /standard/messages/detail/:id         controllers.Messages.detail(id: Int)
+GET     /standard/messages/write              controllers.Messages.write
+
+GET     /login                                     controllers.Sessions.login
+POST    /standard/login                       controllers.Sessions.authenticate
+GET     /standard/logout                      controllers.Sessions.logout
