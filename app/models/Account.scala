@@ -9,11 +9,11 @@ object Account {
   }
 
   def findByEmail(email: String): Option[Account] = {
-    Option.apply(new Account(1, "test@gmail.com", "test@gmail.com", "test", Role.NormalUser))
+    Option.apply(new Account(1, "test@gmail.com", "test", "test", Role.NormalUser))
   }
 
   def findById(id: Int): Option[Account] = {
-    null
+    Option.apply(new Account(1, "test@gmail.com", "test", "test", Role.NormalUser))
   }
 
   def findAll(): Seq[Account] = { 
