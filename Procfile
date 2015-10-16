@@ -1,1 +1,1 @@
-web: target/start -Dhttp.port=$PORT $PLAY_OPTS
+web (Free): `target/universal/stage/bin/rozha -Dhttp.port=${PORT}`
