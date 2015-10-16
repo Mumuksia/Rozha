@@ -1,1 +1,0 @@
-web (Free): `target/universal/stage/bin/rozha -Dhttp.port=${PORT}`
