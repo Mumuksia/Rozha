@@ -12,7 +12,7 @@ class Application extends Controller {
 
   // serves the web page
   def index = Action {
-    Ok(views.html.rozha())
+    Ok(views.html.rozhaRead())
   }
 
   // The json keys. The 'id' field was added as without it we would get a warning like this:

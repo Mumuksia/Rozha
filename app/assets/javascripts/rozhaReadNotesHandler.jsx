@@ -12,22 +12,6 @@ var NotesBox = React.createClass({
       }.bind(this)
     });
   },
-  handleNoteSubmit: function(note) {
-    var noteUrl = "/addNote?noteBy=" + note.noteBy + "&name=" + note.name + "&note=" + note.note;
-
-    $.ajax({
-      url: noteUrl,
-      dataType: 'json',
-      type: 'POST',
-      data: note,
-      success: function(data) {
-        this.setState({data: data});
-      }.bind(this),
-      error: function(xhr, status, err) {
-        console.error(this.props.url, status, err.toString());
-      }.bind(this)
-    });
-  },
   getInitialState: function() {
     return {data: []};
   },
@@ -40,7 +24,6 @@ var NotesBox = React.createClass({
       <div className="notesBox">
         <h1>Notes</h1>        
         <NoteList data={this.state.data} />
-        <NoteForm noNoteSubmit={this.handleNoteSubmit}/>
       </div>
     );
   }
@@ -61,36 +44,6 @@ var NoteList = React.createClass({
       <div className="container">
         {noteNodes}
       </div>
-    );
-  }
-});
-
-var NoteForm = React.createClass({
-  handleSubmit: function(e) {
-    e.preventDefault();
-    var noteBy = React.findDOMNode(this.refs.noteBy).value.trim();
-    var name = React.findDOMNode(this.refs.name).value.trim();
-    var note = React.findDOMNode(this.refs.note).value.trim();
-    if (!name || !noteBy) {
-      return;
-    }
-
-    this.props.noNoteSubmit({noteBy: noteBy, name: name, note: note});
-
-    // clears the form fields
-    React.findDOMNode(this.refs.noteBy).value = '';
-    React.findDOMNode(this.refs.name).value = '';
-    React.findDOMNode(this.refs.note).value = '';
-    return;
-  },
-  render: function() {
-    return (
-      <form className="noteForm" onSubmit={this.handleSubmit}>
-        <input type="text" placeholder="Your name" ref="noteBy" />
-        <input type="text" placeholder="Clan Name" ref="name" />
-        <input type="text" placeholder="Note description" ref="note" />
-        <input type="submit" value="Post" />
-      </form>
     );
   }
 });
