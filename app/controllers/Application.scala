@@ -5,52 +5,32 @@ import java.util.UUID
 import play.api.libs.json.{JsArray, Json}
 import play.api.mvc._
 import services.FileService
+import services.JsonService
 
-class Application extends Controller {
+class Application extends Controller{
 
-  val fileService = new FileService
+  val fileService = new FileService  
+  val jsonService = new JsonService
+  val wishFile = "wishes.txt"
 
   // serves the web page
   def index = Action {
     Ok(views.html.rozhaRead())
   }
-
-  // The json keys. The 'id' field was added as without it we would get a warning like this:
-  // Warning: Each child in an array or iterator should have a unique "key" prop. Check the render method of CommentList. See https://fb.me/react-warning-keys for more information.
-  val JSON_KEY_COMMENTS = "comments"
-  val JSON_KEY_AUTHOR = "author"
-  val JSON_KEY_TEXT = "text"
-  val JSON_KEY_ID = "id"
-
-  // Initialise the comments list
-  var commentsJson: JsArray = Json.arr(
-    Json.obj(JSON_KEY_ID -> UUID.randomUUID().toString, JSON_KEY_AUTHOR -> "Pete Hunt", JSON_KEY_TEXT -> "This is one comment"),
-    Json.obj(JSON_KEY_ID -> UUID.randomUUID().toString, JSON_KEY_AUTHOR -> "Jordan Walke", JSON_KEY_TEXT -> "This is *another* comment")
-  )
-
-  // Returns the comments list
-  def comments = Action {
-    println(commentsJson)
-    Ok(commentsJson)
-  }
-
-  // Adds a new comment to the list and returns it
-  def comment(author: String, text: String) = Action {
-    val newComment = Json.obj(
-      JSON_KEY_ID -> UUID.randomUUID().toString,
-      JSON_KEY_AUTHOR -> author,
-      JSON_KEY_TEXT -> text)
-    commentsJson = commentsJson :+ newComment
-    Ok(newComment)
-  }
-
-  def saveComments = Action {
-    fileService.saveToFile(commentsJson.toString(), "data.txt")
-    Ok(commentsJson)
-  }
-  
+ 
   def loadData = Action{
     Ok(fileService.readFromFile("data.txt"))
   }
 
+  def addWish(name: String, number: String) = Action{
+    val jsRow = jsonService.transformToWishRow(name, number)
+    val jsArray: JsArray = Json.parse(fileService.readFromFile(wishFile)).as[JsArray]  
+    val newArray: JsArray = jsArray.append(jsRow)
+    fileService.updateListInFile(newArray.toString, wishFile)
+    Ok(newArray)
+  }
+  
+  def loadWishes = Action{
+    Ok(fileService.readFromFile(wishFile))
+  }
 }

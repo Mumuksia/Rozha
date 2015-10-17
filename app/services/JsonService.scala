@@ -27,5 +27,9 @@ class JsonService {
     def transformNoteToJsonRow(name: String, note: String, noteBy: String) : JsObject = {
       Json.obj(JSON_KEY_ID -> UUID.randomUUID().toString, JSON_KEY_Name -> name, JSON_KEY_NOTE_BY -> noteBy, JSON_KEY_NOTE -> note);
     }
+    
+  def transformToWishRow(name: String, number: String) : JsObject = {
+    Json.obj(JSON_KEY_ID -> UUID.randomUUID().toString, JSON_KEY_Name -> name, JSON_KEY_Number -> number);
+  }
 
 }

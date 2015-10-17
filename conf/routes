@@ -9,14 +9,11 @@ GET         /                     controllers.Application.index
 GET         /loadWar             controllers.WarController.loadReservations
 GET         /loadNotes             controllers.NoteController.loadNotes
 GET         /init             controllers.WarController.initFile
-POST        /comment              controllers.Application.comment(author, text)
-GET         /saveComments         controllers.Application.saveComments
 GET         /history             controllers.Application.loadData
-GET         /notes            controllers.Application.comments
-GET         /rules             controllers.Application.comments
-GET         /comments             controllers.Application.comments
 POST         /addReservation            controllers.WarController.addReservation(name, number, approvedBy)
 POST         /addNote           controllers.NoteController.addNote(name, note, noteBy)
+GET         /loadWishes             controllers.Application.loadWishes
+POST         /addWish             controllers.Application.addWish(name, number)
 
 
 # Map static resources from the /public folder to the /assets URL path
