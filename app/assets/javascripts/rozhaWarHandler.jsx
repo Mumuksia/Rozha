@@ -28,6 +28,20 @@ var CommentBox = React.createClass({
       }.bind(this)
     });
   },
+  delc: function(commentId){
+    $.ajax({
+      url: this.props.url,
+      data: {"id" : commentId},
+      type: 'DELETE',
+      dataType: 'json',
+      success: function (data) {
+        this.setState({data: data});
+      }.bind(this), 
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+      });
+  },
   getInitialState: function() {
     return {data: []};
   },
@@ -39,7 +53,7 @@ var CommentBox = React.createClass({
     return (
       <div className="commentBox">
         <h1>Reservations</h1>        
-        <CommentList data={this.state.data} />
+        <CommentList data={this.state.data} del={this.delc} />
         <CommentForm onCommentSubmit={this.handleCommentSubmit} />
       </div>
     );
@@ -47,13 +61,16 @@ var CommentBox = React.createClass({
 });
 
 var CommentList = React.createClass({
+  handleDelete: function(commentId){
+    return this.props.del(commentId);
+  },
   render: function() {
     var commentNodes = this.props.data.map(function (comment) {
       return (
-        <Comment key={comment.id} approvedBy={comment.ApprovedBy} number={comment.Number} name={comment.Name}>          
+        <Comment key={comment.id} approvedBy={comment.ApprovedBy} number={comment.Number} name={comment.Name} onDelete = {this.handleDelete}>          
         </Comment>        
       );
-    });
+    }.bind(this));
 
     return (
       <div className="container">
@@ -94,6 +111,11 @@ var CommentForm = React.createClass({
 });
 
 var Comment = React.createClass({
+  handleClick: function(e){
+    e.preventDefault();
+    var commentId = this.props.key;
+    return this.props.onDelete(commentId);
+  },
   render: function() {
     var rawMarkup = this.props.name;
 
@@ -102,7 +124,7 @@ var Comment = React.createClass({
                 <div className="col-md-3">{this.props.name}</div>     
                 <div className="col-md-2">{this.props.number}</div> 
                 <div className="col-md-3">{this.props.approvedBy}</div>
-                <div className="col-md-4"></div>
+                <div className="col-md-4"><a onClick={this.handleClick}>some text</a></div>
             </div>
     );
   }

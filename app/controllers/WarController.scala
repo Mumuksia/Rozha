@@ -20,6 +20,10 @@ val reservationFile = "reservations.txt"
     Ok(Json.parse(fileService.readFromFile(reservationFile)))            
   }
   
+  def deleteReservation(id: String) = Action{
+    Ok(Json.parse(fileService.readFromFile(reservationFile)))            
+  }
+  
   def addReservation(name: String, number: String, approvedBy: String) = Action{
     val jsRow = jsonService.transformToReservationRow(name, number, approvedBy)
     val jsArray: JsArray = Json.parse(fileService.readFromFile(reservationFile)).as[JsArray]  
