@@ -7,7 +7,7 @@ GET         /                     controllers.Application.index
 
 # APIs
 GET         /loadWar             controllers.WarController.loadReservations
-DELETE         /loadWar             controllers.WarController.deleteReservation(id)
+DELETE         /loadWar/:id             controllers.WarController.deleteReservation(id)
 GET         /loadNotes             controllers.NoteController.loadNotes
 GET         /init             controllers.WarController.initFile
 GET         /history             controllers.Application.loadData

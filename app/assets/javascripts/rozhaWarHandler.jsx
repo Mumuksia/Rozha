@@ -29,6 +29,7 @@ var CommentBox = React.createClass({
     });
   },
   delc: function(commentId){
+      var delUrl = "/loadWar?id=" + commentId
     $.ajax({
       url: this.props.url,
       data: {"id" : commentId},

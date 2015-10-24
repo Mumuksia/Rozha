@@ -21,6 +21,7 @@ val reservationFile = "reservations.txt"
   }
   
   def deleteReservation(id: String) = Action{
+    println(id)
     Ok(Json.parse(fileService.readFromFile(reservationFile)))            
   }
   

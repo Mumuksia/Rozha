@@ -8,8 +8,6 @@ case class Account(id: Int, email: String, password: String, name: String, role:
 object Account {
   
   
-  
-  
   val fileService = new FileService
 
   def authenticate(email: String, password: String): Option[Account] = {
@@ -27,7 +25,7 @@ object Account {
  def findAll(): Seq[Account] = {    
    val jsUsers : Seq[JsValue] = Json.parse(fileService.readFromFile("users.txt")).as[JsArray].value
    for(jsValue <- jsUsers) yield createAccount(jsValue)
-}
+ }
   
   def create(account: Account) {
    
