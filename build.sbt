@@ -29,7 +29,9 @@ libraryDependencies ++= Seq(
    "org.postgresql" % "postgresql" % "9.3-1102-jdbc41"
 )
 
+libraryDependencies += evolutions
 
+DBs.setupAll
 
 resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
 

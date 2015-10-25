@@ -4,14 +4,13 @@
 
 set ignorecase true;
 
-CREATE TABLE employee (
-  id                        BIGINT NOT NULL AUTO_INCREMENT,
-  name                      VARCHAR(255) NOT NULL,
-  address                   VARCHAR(1000) NOT NULL,
-  designation               VARCHAR(255) NOT NULL,
-  CONSTRAINT pk_employee PRIMARY KEY (id))
-;
+CREATE TABLE reservation (
+  id                       integer NOT NULL PRIMARY KEY,
+  name                      VARCHAR(55) NOT NULL,
+  number                   VARCHAR(10) NOT NULL,
+  status               VARCHAR(55) NOT NULL
+  );
 
 # --- !Downs
 
-drop table if exists employee;
+drop table if exists reservation;

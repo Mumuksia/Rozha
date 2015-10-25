@@ -2,6 +2,7 @@ package controllers
 
 import java.util.UUID
 
+import models.Reservation
 import play.api.libs.json.{JsArray, Json}
 import play.api.mvc._
 import services.FileService
@@ -15,6 +16,7 @@ class Application extends Controller{
 
   // serves the web page
   def index = Action {
+    println(Reservation.findById(1))
     Ok(views.html.rozhaRead())
   }
  
