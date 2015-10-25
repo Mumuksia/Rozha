@@ -7,9 +7,8 @@ name := """Rozha"""
 version := "1.0-SNAPSHOT"
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala, SbtWeb)
-
-scalaVersion := "2.11.6"
-
+.settings(
+scalaVersion := "2.11.6",
 libraryDependencies ++= Seq(
   jdbc,
   cache,
@@ -27,11 +26,15 @@ libraryDependencies ++= Seq(
   "jp.t2v" %% "play2-auth-test"   % "0.14.1" % "test",
   "org.scalikejdbc" %% "scalikejdbc"       % "2.2.9",
    "org.postgresql" % "postgresql" % "9.3-1102-jdbc41"
-)
-
-libraryDependencies += evolutions
-
-DBs.setupAll
+),
+    initialCommands := """
+      import scalikejdbc._, config._
+      import models._, utils._
+      DBs.setupAll
+      DBInitializer.run()
+      implicit val autoSession = AutoSession
+    """
+  )
 
 resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
 

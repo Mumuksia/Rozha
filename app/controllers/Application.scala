@@ -16,7 +16,7 @@ class Application extends Controller{
 
   // serves the web page
   def index = Action {
-    println(Reservation.findById(1))
+    //println(Reservation.findById(1))
     Ok(views.html.rozhaRead())
   }
  
