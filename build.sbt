@@ -13,20 +13,17 @@ libraryDependencies ++= Seq(
   jdbc,
   cache,
   ws,
-  specs2 % Test,
   "org.webjars" %% "webjars-play" % "2.4.0-1",
   "org.webjars" % "react" % "0.13.3",
   "org.webjars" % "marked" % "0.3.2",
   "org.webjars" % "jquery" % "2.1.4",
-  "org.scalatestplus" % "play_2.11" % "1.2.0" % "test",
-  "org.scalatest" % "scalatest_2.11" % "2.2.4" % "test",
   "org.webjars" % "bootstrap" % "3.1.1",
   "jp.t2v" %% "play2-auth"        % "0.14.1",
   "jp.t2v" %% "play2-auth-social" % "0.14.1", // for social login
-  "jp.t2v" %% "play2-auth-test"   % "0.14.1" % "test",
   "org.scalikejdbc" %% "scalikejdbc"       % "2.2.9",
    "org.postgresql" % "postgresql" % "9.3-1102-jdbc41",
-   evolutions
+   evolutions,
+   "com.typesafe.play" %% "anorm" % "2.4.0"
 ),
     initialCommands := """
       import scalikejdbc._, config._
