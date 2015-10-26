@@ -25,7 +25,8 @@ libraryDependencies ++= Seq(
   "jp.t2v" %% "play2-auth-social" % "0.14.1", // for social login
   "jp.t2v" %% "play2-auth-test"   % "0.14.1" % "test",
   "org.scalikejdbc" %% "scalikejdbc"       % "2.2.9",
-   "org.postgresql" % "postgresql" % "9.3-1102-jdbc41"
+   "org.postgresql" % "postgresql" % "9.3-1102-jdbc41",
+   evolutions
 ),
     initialCommands := """
       import scalikejdbc._, config._
