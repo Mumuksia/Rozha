@@ -2,6 +2,10 @@ package models
 
 import services.FileService
 import play.api.libs.json.{JsArray, Json, JsValue, Reads}
+import play.api.db._
+import play.api.Play._
+import anorm._
+import anorm.SqlParser._
 
 case class Account(id: Int, email: String, password: String, name: String, role: Role)
 
@@ -26,6 +30,10 @@ object Account {
    val jsUsers : Seq[JsValue] = Json.parse(fileService.readFromFile("users.txt")).as[JsArray].value
    for(jsValue <- jsUsers) yield createAccount(jsValue)
  }
+ 
+  def findAllDB(): Seq[Account] = {
+    null
+  }
   
   def create(account: Account) {
    
