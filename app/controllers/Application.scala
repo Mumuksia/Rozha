@@ -24,20 +24,16 @@ class Application extends Controller {
   }
 
   def loadData = Action {   
-    val jsData = Reservations.findByStatus("some").map( x => jsonService.transformToReservationRow(x)):Seq[JsObject]
-    Ok(jsData.foldLeft(JsArray())((acc, x) => acc ++ Json.arr(x)))
+    Ok(jsonService.transformReservationsToJsArray(Reservations.findByStatus("some")))
   }
 
   def addWish(name: String, number: String) = Action {
-    val jsRow = jsonService.transformToWishRow(name, number)
-    val jsArray: JsArray = Json.parse(fileService.readFromFile(wishFile)).as[JsArray]
-    val newArray: JsArray = jsArray.append(jsRow)
-    fileService.updateListInFile(newArray.toString, wishFile)
-    Ok(newArray)
+    Reservations.create(new Reservations(11, name, number, "temporary"))
+    Ok(jsonService.transformReservationsToJsArray(Reservations.findByStatus("temporary")))
   }
 
   def loadWishes = Action {
-    Ok(fileService.readFromFile(wishFile))
+    Ok(jsonService.transformReservationsToJsArray(Reservations.findByStatus("temporary")))
   }
 
 }

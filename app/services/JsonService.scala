@@ -39,5 +39,10 @@ class JsonService {
   def transformToWishRow(name: String, number: String) : JsObject = {
     Json.obj(JSON_KEY_ID -> UUID.randomUUID().toString, JSON_KEY_Name -> name, JSON_KEY_Number -> number, JSON_KEY_STATUS -> "temporary");
   }
+  
+  def transformReservationsToJsArray(reservations: Seq[Reservations]) : JsArray = {
+    val jsData = reservations.map( x => transformToReservationRow(x)):Seq[JsObject]
+    jsData.foldLeft(JsArray())((acc, x) => acc ++ Json.arr(x))
+  }
 
 }

@@ -43,7 +43,7 @@ object Reservations {
   def create(reservation: Reservations) {
     DB.withConnection { implicit c =>
       SQL("insert into Reservations(id, name, number, status) values ({id}, {name}, {number}, {status})").
-        on('id -> 3, 'name -> "Cambridge", 'number -> "New Zealand", 'status -> "some").
+        on('id -> reservation.id, 'name -> reservation.name, 'number -> reservation.number, 'status -> reservation.status).
         executeInsert()
     }
   }
