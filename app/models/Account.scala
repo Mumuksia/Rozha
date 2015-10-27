@@ -30,15 +30,10 @@ object Account {
   val fileService = new FileService
 
   def authenticate(email: String, password: String): Option[Account] = {
-    val acc = findByEmail(email)
-    println(email)
-    println(acc)
-    acc
+    findByEmail(email)
   }
 
   def findByEmail(email: String): Option[Account] = {
-    val accs = findAllDB
-    println(accs)
     findAllDB.find(account => account.email == email)
   }
 
