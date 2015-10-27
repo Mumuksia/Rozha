@@ -34,11 +34,11 @@ object Account {
   }
 
   def findByEmail(email: String): Option[Account] = {
-    findAllDB.find(account => account.email == email)
+    findAll.find(account => account.email == email)
   }
 
   def findById(id: Int): Option[Account] = {
-    findAllDB.find(account => account.id == id)    
+    findAll.find(account => account.id == id)    
   }
   
  def findAll(): Seq[Account] = {    
