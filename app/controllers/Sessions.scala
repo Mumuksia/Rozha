@@ -31,7 +31,10 @@ class Sessions extends Controller with LoginLogout with AuthConfigImpl {
     implicit request =>    
     loginForm.bindFromRequest.fold(
       formWithErrors => Future.successful(BadRequest(html.login(formWithErrors))),
-      user           => gotoLoginSucceeded(user.get.id)
+      user           => {
+        println("START _______________________" + user.get.id)
+        gotoLoginSucceeded(user.get.id)
+      }
     )
   }
 

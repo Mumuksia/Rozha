@@ -45,6 +45,7 @@ trait BaseAuthConfig  extends AuthConfig {
     private val random = new Random(new SecureRandom())
 
     override def startNewSession(userId: Id, timeoutInSeconds: Int)(implicit request: RequestHeader, context: ExecutionContext): Future[AuthenticityToken] = {
+      println("START NEW SESSION_______________________")
       removeByUserId(userId)
       val token = generate()
       store(token, userId, timeoutInSeconds)
