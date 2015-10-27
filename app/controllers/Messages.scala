@@ -20,8 +20,7 @@ class Messages extends Controller with Pjax with AuthElement with AuthConfigImpl
 
   def main = StackAction(AuthorityKey -> NormalUser) { implicit request =>
     val user = loggedIn
-    println("**********")
-    println(user)
+    val title = "message main"
     Ok(html.rozha())
   }
 

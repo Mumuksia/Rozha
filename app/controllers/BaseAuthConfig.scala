@@ -29,22 +29,13 @@ trait BaseAuthConfig  extends AuthConfig {
   def resolveUser(id: Id)(implicit ctx: ExecutionContext) = Future.successful(Account.findById(id))
   def authorizationFailed(request: RequestHeader)(implicit ctx: ExecutionContext) = throw new AssertionError("don't use")
   override def authorizationFailed(request: RequestHeader, user: User, authority: Option[Authority])(implicit ctx: ExecutionContext) = {
-    println(s"authorizationFailed. userId: ${user.id}, userName: ${user.name}, authority: $authority")
+    Logger.info(s"authorizationFailed. userId: ${user.id}, userName: ${user.name}, authority: $authority")
     Future.successful(Forbidden("no permission"))
   }
   def authorize(user: User, authority: Authority)(implicit ctx: ExecutionContext) = Future.successful((user.role, authority) match {
-    case (Administrator, _) => {
-        println("ADMIN " + user)
-        true
-  }
-    case (NormalUser, NormalUser) => {
-        println("Normal " + user)
-        true
-  }
-    case _ => {
-        println(user)
-        false
-  }
+    case (Administrator, _) => true
+    case (NormalUser, NormalUser) => true
+    case _ => false
   })
 
   override lazy val idContainer: AsyncIdContainer[Id] = new AsyncIdContainer[Id] {
