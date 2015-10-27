@@ -36,6 +36,7 @@ object Account {
   }
 
   def findByEmail(email: String): Option[Account] = {
+    println("Find by email" + email)
      DB.withConnection { implicit c =>
       SQL("select * from ACCOUNT where email = {email}").on('email->email).
       as(allRowsParserOption)
@@ -43,6 +44,7 @@ object Account {
   }
 
   def findById(id: Int): Option[Account] = {
+    println("Find by id" + id)
      DB.withConnection { implicit c =>
       SQL("select * from ACCOUNT where id = {id}").on('id->id).
       as(allRowsParserOption)
