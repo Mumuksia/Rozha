@@ -11,19 +11,39 @@ case class Account(id: Int, email: String, password: String, name: String, role:
 
 object Account {
   
+    val accountParser: RowParser[Account] = (
+    SqlParser.int("id") ~
+    SqlParser.str("name") ~
+    SqlParser.str("email") ~
+    SqlParser.str("password") ~
+    SqlParser.str("role")
+  ) map {
+      case id ~ name ~ email ~ password ~ role =>
+        Account(id, email, password, name, Role.valueOf(role))
+    }
+
+  val allRowsParser: ResultSetParser[Account] = accountParser.single
+  
+  val allRowsListParser: ResultSetParser[List[Account]] = accountParser.*
+  
   
   val fileService = new FileService
 
   def authenticate(email: String, password: String): Option[Account] = {
-    findByEmail(email)
+    val acc = findByEmail(email)
+    println(email)
+    println(acc)
+    acc
   }
 
   def findByEmail(email: String): Option[Account] = {
-    findAll.find(account => account.email == email)
+    val accs = findAllDB
+    println(accs)
+    findAllDB.find(account => account.email == email)
   }
 
   def findById(id: Int): Option[Account] = {
-    findAll.find(account => account.id == id)    
+    findAllDB.find(account => account.id == id)    
   }
   
  def findAll(): Seq[Account] = {    
@@ -32,7 +52,10 @@ object Account {
  }
  
   def findAllDB(): Seq[Account] = {
-    null
+    DB.withConnection { implicit c =>
+      SQL("select * from ACCOUNT").
+      as(allRowsListParser)
+    }
   }
   
   def create(account: Account) {
