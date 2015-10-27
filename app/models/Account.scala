@@ -34,11 +34,17 @@ object Account {
   }
 
   def findByEmail(email: String): Option[Account] = {
-    findAll.find(account => account.email == email)
+         DB.withConnection { implicit c =>
+      SQL("select * from ACCOUNT where email = {email}").on('email->email).
+      as(allRowsParser)
+    }
   }
 
   def findById(id: Int): Option[Account] = {
-    findAll.find(account => account.id == id)    
+     DB.withConnection { implicit c =>
+      SQL("select * from ACCOUNT where id = {id}").on('id->id).
+      as(allRowsParser)
+    }   
   }
   
  def findAll(): Seq[Account] = {    
