@@ -24,6 +24,8 @@ object Account {
 
   val allRowsParser: ResultSetParser[Account] = accountParser.single
   
+  val allRowsParserOption: ResultSetParser[Option[Account]] = accountParser.singleOpt
+  
   val allRowsListParser: ResultSetParser[List[Account]] = accountParser.*
   
   
@@ -34,16 +36,16 @@ object Account {
   }
 
   def findByEmail(email: String): Option[Account] = {
-         DB.withConnection { implicit c =>
+     DB.withConnection { implicit c =>
       SQL("select * from ACCOUNT where email = {email}").on('email->email).
-      as(allRowsParser)
+      as(allRowsParserOption)
     }
   }
 
   def findById(id: Int): Option[Account] = {
      DB.withConnection { implicit c =>
       SQL("select * from ACCOUNT where id = {id}").on('id->id).
-      as(allRowsParser)
+      as(allRowsParserOption)
     }   
   }
   
