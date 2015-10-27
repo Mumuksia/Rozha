@@ -27,7 +27,8 @@ class Sessions extends Controller with LoginLogout with AuthConfigImpl {
     ).removingFromSession("rememberme"))
   }
 
-  def authenticate = Action.async { implicit request =>
+  def authenticate = Action.async {     
+    implicit request =>    
     loginForm.bindFromRequest.fold(
       formWithErrors => Future.successful(BadRequest(html.login(formWithErrors))),
       user           => gotoLoginSucceeded(user.get.id)
