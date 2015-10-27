@@ -28,7 +28,7 @@ class Application extends Controller {
   }
 
   def addWish(name: String, number: String) = Action {
-    Reservations.create(new Reservations(11, name, number, "temporary"))
+    Reservations.create(new Reservations(0, name, number, "temporary"))
     Ok(jsonService.transformReservationsToJsArray(Reservations.findByStatus("temporary")))
   }
 

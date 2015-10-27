@@ -25,47 +25,47 @@ object Reservations {
 
   def findById(id: Int): Reservations = {
     DB.withConnection { implicit c =>
-      SQL("select * from RESERVATIONS where id = 1").as(allRowsParser)
+      SQL("select * from RESERVATIONS where id = {id}").on('id->id).as(allRowsParser)
     }
   }
   
   def findByStatus(status: String): Seq[Reservations] = {
-        DB.withConnection { implicit c =>
+    DB.withConnection { implicit c =>
       SQL("select * from RESERVATIONS where status = {stat}").on('stat->status).
       as(allRowsListParser)
     }
   }
 
   def findAll(): Seq[Reservations] = {
-    null
+      null
   }
 
   def create(reservation: Reservations) {
     DB.withConnection { implicit c =>
-      SQL("insert into Reservations(id, name, number, status) values ({id}, {name}, {number}, {status})").
-        on('id -> reservation.id, 'name -> reservation.name, 'number -> reservation.number, 'status -> reservation.status).
+      SQL("insert into RESERVATIONS(name, number, status) values ({name}, {number}, {status})").
+        on( 'name -> reservation.name, 'number -> reservation.number, 'status -> reservation.status).
         executeInsert()
     }
   }
 
   def createSample() {
     DB.withConnection { implicit c =>
-      SQL("insert into Reservations(id, name, number, status) values ({id}, {name}, {number}, {status})").
-        on('id -> 3, 'name -> "Cambridge", 'number -> "New", 'status -> "some").
+      SQL("insert into RESERVATIONS(name, number, status) values ({name}, {number}, {status})").
+        on('name -> "Cambridge", 'number -> "New", 'status -> "some").
         executeInsert()
     }
   }
 
   def clearAll(status: String) {
     DB.withConnection { implicit c =>
-      SQL("delete from Reservations where status = {status}").on('status -> status)
+      SQL("delete from RESERVATIONS where status = {status}").on('status -> status)
         .executeUpdate()
     }
   }
   
     def clearAllTable() {
     DB.withConnection { implicit c =>
-      SQL("delete from Reservations where status != stay")
+      SQL("delete from RESERVATIONS where status != stay")
         .executeUpdate()
     }
   }

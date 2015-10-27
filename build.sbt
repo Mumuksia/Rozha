@@ -11,7 +11,7 @@ lazy val root = (project in file(".")).enablePlugins(PlayScala, SbtWeb)
 scalaVersion := "2.11.6",
 libraryDependencies ++= Seq(
   jdbc,
-  cache,
+  cache,  
   ws,
   "org.webjars" %% "webjars-play" % "2.4.0-1",
   "org.webjars" % "react" % "0.13.3",
@@ -19,17 +19,12 @@ libraryDependencies ++= Seq(
   "org.webjars" % "jquery" % "2.1.4",
   "org.webjars" % "bootstrap" % "3.1.1",
   "jp.t2v" %% "play2-auth"        % "0.14.1",
-  "jp.t2v" %% "play2-auth-social" % "0.14.1", // for social login
-  "org.scalikejdbc" %% "scalikejdbc"       % "2.2.9",
+  "jp.t2v" %% "play2-auth-social" % "0.14.1",  
    "org.postgresql" % "postgresql" % "9.3-1102-jdbc41",
-   evolutions,
    "com.typesafe.play" %% "anorm" % "2.4.0"
 ),
     initialCommands := """
-      import scalikejdbc._, config._
       import models._, utils._
-      DBs.setupAll
-      DBInitializer.run()
       implicit val autoSession = AutoSession
     """
   )
