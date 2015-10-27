@@ -7,7 +7,7 @@ import scala.concurrent.{Future, ExecutionContext}
 
 trait AuthConfigImpl extends BaseAuthConfig {
   
-  override lazy val cookieSecureOption: Boolean = false
+//  override lazy val cookieSecureOption: Boolean = false
 
   def loginSucceeded(request: RequestHeader)(implicit ctx: ExecutionContext) = Future.successful(Redirect(routes.Messages.main))
 

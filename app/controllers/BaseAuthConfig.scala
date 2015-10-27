@@ -25,6 +25,8 @@ trait BaseAuthConfig  extends AuthConfig {
 
   val idTag: ClassTag[Id] = classTag[Id]
   val sessionTimeoutInSeconds = 3600
+  
+//  override lazy val cookieSecureOption: Boolean = false
 
   def resolveUser(id: Id)(implicit ctx: ExecutionContext) = Future.successful(Account.findById(id))
   def authorizationFailed(request: RequestHeader)(implicit ctx: ExecutionContext) = throw new AssertionError("don't use")
