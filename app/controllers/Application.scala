@@ -9,6 +9,7 @@ import services.DBService
 import services.FileService
 import services.JsonService
 import play.api.db._
+import models.War
 import play.api.Play.current
 
 class Application extends Controller {
@@ -24,16 +25,23 @@ class Application extends Controller {
   }
 
   def loadData = Action {   
-    Ok(jsonService.transformReservationsToJsArray(Reservations.findByStatus("some")))
+    Ok(jsonService.transformReservationsToJsArray(Reservations.findByStatusAndWar("some", getCurrentWarId)))
   }
 
   def addWish(name: String, number: String) = Action {
-    Reservations.create(new Reservations(0, name, number, "temporary"))
-    Ok(jsonService.transformReservationsToJsArray(Reservations.findByStatus("temporary")))
+    Reservations.create(new Reservations(0, name, number, "temporary", getCurrentWarId))
+    Ok(jsonService.transformReservationsToJsArray(Reservations.findByStatusAndWar("temporary", getCurrentWarId)))
   }
 
   def loadWishes = Action {
-    Ok(jsonService.transformReservationsToJsArray(Reservations.findByStatus("temporary")))
+    Ok(jsonService.transformReservationsToJsArray(Reservations.findByStatusAndWar("temporary", getCurrentWarId)))
+  }
+  
+  def getCurrentWarId() : Int = {
+    War.findCurrentWar() match {
+      case Some(war) => war.id
+      case None => 0
+    }
   }
 
 }

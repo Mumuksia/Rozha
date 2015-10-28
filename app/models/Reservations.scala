@@ -5,7 +5,7 @@ import play.api.Play._
 import anorm._
 import anorm.SqlParser._
 
-case class Reservations(id: Int, name: String, number: String, status: String)
+case class Reservations(id: Int, name: String, number: String, status: String, warId: Int)
 
 object Reservations {
 
@@ -13,10 +13,11 @@ object Reservations {
     SqlParser.int("id") ~
     SqlParser.str("name") ~
     SqlParser.str("number") ~
-    SqlParser.str("status")
+    SqlParser.str("status") ~
+    SqlParser.int("warId")
   ) map {
-      case id ~ name ~ number ~ status =>
-        Reservations(id, name, number, status)
+      case id ~ name ~ number ~ status ~ warId =>
+        Reservations(id, name, number, status, warId)
     }
 
   val allRowsParser: ResultSetParser[Reservations] = reservationsParser.single
@@ -36,24 +37,26 @@ object Reservations {
     }
   }
 
+  def findByStatusAndWar(status: String, warId: Int): Seq[Reservations] = {
+    DB.withConnection { implicit c =>
+      SQL("select * from RESERVATIONS where status = {stat} and warId = {warId}").on('stat->status, 'warId->warId).
+      as(allRowsListParser)
+    }
+  }
+  
   def findAll(): Seq[Reservations] = {
       null
   }
 
   def create(reservation: Reservations) {
     DB.withConnection { implicit c =>
-      SQL("insert into RESERVATIONS(name, number, status) values ({name}, {number}, {status})").
-        on( 'name -> reservation.name, 'number -> reservation.number, 'status -> reservation.status).
+      SQL("insert into RESERVATIONS(name, number, status, warId) values ({name}, {number}, {status}, {warId})").
+        on( 'name -> reservation.name, 'number -> reservation.number, 'status -> reservation.status, 'warId -> reservation.warId).
         executeInsert()
     }
   }
 
   def createSample() {
-    DB.withConnection { implicit c =>
-      SQL("insert into RESERVATIONS(name, number, status) values ({name}, {number}, {status})").
-        on('name -> "Cambridge", 'number -> "New", 'status -> "some").
-        executeInsert()
-    }
   }
 
   def clearAll(status: String) {
