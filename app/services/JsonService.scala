@@ -2,6 +2,7 @@ package services
 
 import java.io._
 import scala.io.Source
+import models.Notes
 import models.Reservations
 import models.War
 import play.api.libs.json.{JsArray, Json, JsObject, JsValue}
@@ -23,6 +24,7 @@ class JsonService {
   val JSON_KEY_STATUS = "Status"
   val JSON_KEY_SCORE = "Score"
   val JSON_KEY_START_DATE = "StartDate"
+  val JSON_KEY_START_DESC = "Description"
 
     
     def transformToReservationRow(name: String, number: String, approvedBy: String) : JsObject = {
@@ -35,8 +37,9 @@ class JsonService {
         JSON_KEY_STATUS -> res.status);
     }
     
-    def transformNoteToJsonRow(name: String, note: String, noteBy: String) : JsObject = {
-      Json.obj(JSON_KEY_ID -> UUID.randomUUID().toString, JSON_KEY_Name -> name, JSON_KEY_NOTE_BY -> noteBy, JSON_KEY_NOTE -> note);
+    def transformNoteToJsonRow(note: Notes) : JsObject = {
+      Json.obj(JSON_KEY_ID -> note.id.toString, JSON_KEY_Name -> note.name, JSON_KEY_NOTE_BY -> note.addedby, JSON_KEY_STATUS -> note.status,
+      JSON_KEY_START_DESC-> note.description);
     }
     
   def transformToWishRow(name: String, number: String) : JsObject = {
@@ -45,6 +48,11 @@ class JsonService {
   
   def transformReservationsToJsArray(reservations: Seq[Reservations]) : JsArray = {
     val jsData = reservations.map( x => transformToReservationRow(x)):Seq[JsObject]
+    jsData.foldLeft(JsArray())((acc, x) => acc ++ Json.arr(x))
+  }
+  
+    def transformNotesToJsArray(notes: Seq[Notes]) : JsArray = {
+    val jsData = notes.map( x => transformNoteToJsonRow(x)):Seq[JsObject]
     jsData.foldLeft(JsArray())((acc, x) => acc ++ Json.arr(x))
   }
   

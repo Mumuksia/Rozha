@@ -22,7 +22,7 @@ var NotesBox = React.createClass({
   render: function() {
     return (
       <div className="notesBox">
-        <h1>Notes</h1>        
+        <h1>Penalties</h1>        
         <NoteList data={this.state.data} />
       </div>
     );
@@ -34,7 +34,7 @@ var NoteList = React.createClass({
     var noteNodes = this.props.data.map(function (note) {
       return (
               <div>
-        <Note key={note.id} noteBy={note.NoteBy} note={note.Note} name={note.Name}>          
+        <Note key={note.id} noteBy={note.NoteBy} description={note.Description} name={note.Name}>          
         </Note>    
         </div>
       );
@@ -55,7 +55,7 @@ var Note = React.createClass({
     return (
             <div className="row">
                 <div className="col-md-3">{this.props.name}</div>     
-                <div className="col-md-2">{this.props.note}</div> 
+                <div className="col-md-2">{this.props.description}</div> 
                 <div className="col-md-3">{this.props.noteBy}</div>
                 <div className="col-md-4"></div>
             </div>

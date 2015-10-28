@@ -13,7 +13,7 @@ var NotesBox = React.createClass({
     });
   },
   handleNoteSubmit: function(note) {
-    var noteUrl = "/addNote?noteBy=" + note.noteBy + "&name=" + note.name + "&note=" + note.note;
+    var noteUrl = "/addNote?noteBy=" + note.noteBy + "&name=" + note.name + "&description=" + note.description;
 
     $.ajax({
       url: noteUrl,
@@ -38,7 +38,7 @@ var NotesBox = React.createClass({
   render: function() {
     return (
       <div className="notesBox">
-        <h1>Notes</h1>        
+        <h1>Penalties</h1>        
         <NoteList data={this.state.data} />
         <NoteForm noNoteSubmit={this.handleNoteSubmit}/>
       </div>
@@ -51,7 +51,7 @@ var NoteList = React.createClass({
     var noteNodes = this.props.data.map(function (note) {
       return (
               <div>
-        <Note key={note.id} noteBy={note.NoteBy} note={note.Note} name={note.Name}>          
+        <Note key={note.id} noteBy={note.NoteBy} description={note.Description} name={note.Name}>          
         </Note>    
         </div>
       );
@@ -70,17 +70,17 @@ var NoteForm = React.createClass({
     e.preventDefault();
     var noteBy = React.findDOMNode(this.refs.noteBy).value.trim();
     var name = React.findDOMNode(this.refs.name).value.trim();
-    var note = React.findDOMNode(this.refs.note).value.trim();
+    var description = React.findDOMNode(this.refs.description).value.trim();
     if (!name || !noteBy) {
       return;
     }
 
-    this.props.noNoteSubmit({noteBy: noteBy, name: name, note: note});
+    this.props.noNoteSubmit({noteBy: noteBy, name: name, description: description});
 
     // clears the form fields
     React.findDOMNode(this.refs.noteBy).value = '';
     React.findDOMNode(this.refs.name).value = '';
-    React.findDOMNode(this.refs.note).value = '';
+    React.findDOMNode(this.refs.description).value = '';
     return;
   },
   render: function() {
@@ -88,7 +88,7 @@ var NoteForm = React.createClass({
       <form className="noteForm" onSubmit={this.handleSubmit}>
         <input type="text" placeholder="Your name" ref="noteBy" />
         <input type="text" placeholder="Clan Name" ref="name" />
-        <input type="text" placeholder="Note description" ref="note" />
+        <input type="text" placeholder="Penalty description" ref="description" />
         <input type="submit" value="Post" />
       </form>
     );
@@ -102,7 +102,7 @@ var Note = React.createClass({
     return (
             <div className="row">
                 <div className="col-md-3">{this.props.name}</div>     
-                <div className="col-md-2">{this.props.note}</div> 
+                <div className="col-md-2">{this.props.description}</div> 
                 <div className="col-md-3">{this.props.noteBy}</div>
                 <div className="col-md-4"></div>
             </div>

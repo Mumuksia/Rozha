@@ -12,7 +12,7 @@ GET         /loadNotes             controllers.NoteController.loadNotes
 GET         /init             controllers.WarController.initFile
 GET         /history             controllers.Application.loadData
 POST         /addReservation            controllers.WarController.addReservation(name, number, approvedBy)
-POST         /addNote           controllers.NoteController.addNote(name, note, noteBy)
+POST         /addNote           controllers.NoteController.addNote(name, description, noteBy)
 GET         /loadWishes             controllers.Application.loadWishes
 POST         /addWish             controllers.Application.addWish(name, number)
 POST         /startWar            controllers.WarController.startWar(name, note)
