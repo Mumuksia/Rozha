@@ -37,6 +37,10 @@ class Application extends Controller {
     Ok(jsonService.transformReservationsToJsArray(Reservations.findByStatusAndWar("temporary", getCurrentWarId)))
   }
   
+  def loadCurrentWar = Action {
+    Ok(jsonService.transformWarToJsObject(War.findCurrentWar))
+  }
+  
   def getCurrentWarId() : Int = {
     War.findCurrentWar() match {
       case Some(war) => war.id

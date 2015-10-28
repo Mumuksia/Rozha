@@ -31,6 +31,13 @@ val reservationFile = "reservations.txt"
     Ok(jsonService.transformReservationsToJsArray(Reservations.findByStatusAndWar("some", getCurrentWarId)))    
   }
   
+  def startWar(name: String, note: String) = Action {
+    println("asdasdasd")
+    War.closeCurrent(getCurrentWarId)
+    War.createCurrent(name, note)
+    Ok(jsonService.transformWarToJsObject(War.findCurrentWar))
+  }
+  
   def getCurrentWarId() : Int = {
     War.findCurrentWar() match {
       case Some(war) => war.id

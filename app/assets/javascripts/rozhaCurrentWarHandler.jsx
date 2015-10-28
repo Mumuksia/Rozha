@@ -13,7 +13,7 @@ var WarInfoBox = React.createClass({
     });
   },
   getInitialState: function() {
-    return {data: []};
+    return {data: {}};
   },
   componentDidMount: function() {
     this.loadCommentsFromServer();
@@ -22,8 +22,9 @@ var WarInfoBox = React.createClass({
   render: function() {
     return (
       <div className="warInfoBox">
-        <h4>Current War</h4>        
-        <span data={this.state.data.name} />
+        <h4>Current open war</h4>        
+        <h3> {this.state.data.Name}</h3>
+        <h3> {this.state.data.Note}</h3>
       </div>
     );
   }

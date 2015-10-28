@@ -3,7 +3,8 @@ package services
 import java.io._
 import scala.io.Source
 import models.Reservations
-import play.api.libs.json.{JsArray, Json, JsObject}
+import models.War
+import play.api.libs.json.{JsArray, Json, JsObject, JsValue}
 import java.util.UUID
 
 /**
@@ -20,6 +21,8 @@ class JsonService {
   val JSON_KEY_NOTE = "Note"
   val JSON_KEY_NOTE_BY = "NoteBy"
   val JSON_KEY_STATUS = "Status"
+  val JSON_KEY_SCORE = "Score"
+  val JSON_KEY_START_DATE = "StartDate"
 
     
     def transformToReservationRow(name: String, number: String, approvedBy: String) : JsObject = {
@@ -43,6 +46,15 @@ class JsonService {
   def transformReservationsToJsArray(reservations: Seq[Reservations]) : JsArray = {
     val jsData = reservations.map( x => transformToReservationRow(x)):Seq[JsObject]
     jsData.foldLeft(JsArray())((acc, x) => acc ++ Json.arr(x))
+  }
+  
+  def transformWarToJsObject(optionWar: Option[War]) : JsObject = {
+    optionWar match {
+      case Some(war) => Json.obj(JSON_KEY_ID -> war.id.toString, JSON_KEY_Name -> war.name, JSON_KEY_NOTE -> war.note, JSON_KEY_STATUS -> war.status, 
+      JSON_KEY_SCORE -> war.score, JSON_KEY_START_DATE -> war.startdate);
+      case None => null
+    }
+    
   }
 
 }

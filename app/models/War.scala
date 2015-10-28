@@ -67,6 +67,21 @@ object War{
     }
   }
   
+  def createCurrent(name: String, note: String) {
+    DB.withConnection { implicit c =>
+      SQL("insert into WAR(name, startdate, score, status, note) values ({name}, {startdate}, 'empty', 'open', {note})").
+        on( 'name -> name, 'note -> note, 'startdate -> new Date()).
+        executeInsert()
+    }
+  }
+  
+  def closeCurrent(id: Int) {
+    DB.withConnection { implicit c =>
+      SQL("UPDATE WAR SET status = 'finished' WHERE id = {id};").
+        on( 'id-> id).execute()
+    }
+  }
+  
 }
   
 
