@@ -29,11 +29,12 @@ var CommentBox = React.createClass({
     });
   },
   delc: function(commentId){
+    console.log(commentId)
       var delUrl = "/loadWar?id=" + commentId
     $.ajax({
-      url: this.props.url,
-      data: {"id" : commentId},
-      type: 'DELETE',
+      url: this.props.delUrl,
+      data: commentId,
+      type: 'POST',
       dataType: 'json',
       success: function (data) {
         this.setState({data: data});
