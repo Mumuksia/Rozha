@@ -126,7 +126,7 @@ var Comment = React.createClass({
                 <div className="col-md-3"><b>{this.props.name}</b></div>     
                 <div className="col-md-2">{this.props.number}</div> 
                 <div className="col-md-3">{this.props.approvedBy}</div>
-                <div className="col-md-4"><a onClick={this.handleClick}>some text</a></div>
+                <div className="col-md-4"><a onClick={this.handleClick}>delete</a></div>
             </div>
     );
   }
