@@ -28,6 +28,21 @@ var WishBox = React.createClass({
       }.bind(this)
     });
   },
+  deleteTask: function(commentId) {
+    var deleteUrl = "/deleteWish?id=" + commentId;
+    $.ajax({
+      url: deleteUrl,
+      dataType: 'json',
+      type: 'POST',
+      data: commentId,
+      success: function(data) {
+        this.setState({data: data});
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
   getInitialState: function() {
     return {data: []};
   },
@@ -39,22 +54,25 @@ var WishBox = React.createClass({
     return (
       <div className="wishesBox">
         <h1>Wishes</h1>        
-        <WishList data={this.state.data} />
+        <WishList data={this.state.data} deleteTask={this.deleteTask}/>
       </div>
     );
   }
 });
 
 var WishList = React.createClass({
+  handleDelete: function(commentId){
+    return this.props.deleteTask(commentId);
+  },
   render: function() {
     var wishNodes = this.props.data.map(function (wish) {
       return (
          <div>
-        <Wish key={wish.id} name={wish.Name} number={wish.Number}>          
-        </Wish>    
+        <Wish key={wish.id} name={wish.Name} number={wish.Number} onDelete= {this.handleDelete}>          
+        </Wish> 
         </div>
       );
-    });
+    }.bind(this));
 
     return (
       <div className="container">
@@ -65,14 +83,20 @@ var WishList = React.createClass({
 });
 
 var Wish = React.createClass({
+  handleClick: function(e){
+    e.preventDefault();    
+    var commentId = this.props.key;
+    console.log(commentId);
+    return this.props.onDelete(commentId);
+  },
   render: function() {
     var rawMarkup = this.props.name;
 
     return (
             <div className="row">
-                <div className="col-md-3"><b>{this.props.name}</b></div>     
+                <div className="col-md-4"><b>{this.props.name}</b></div>     
                 <div className="col-md-2">{this.props.number}</div> 
-                <div className="col-md-3"></div>
+                <div className="col-md-2"><a onClick={this.handleClick}>delete</a></div>
                 <div className="col-md-4"></div>
             </div>
             
