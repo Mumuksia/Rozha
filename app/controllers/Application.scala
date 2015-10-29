@@ -25,27 +25,20 @@ class Application extends Controller {
   }
 
   def loadData = Action {   
-    Ok(jsonService.transformReservationsToJsArray(Reservations.findByStatusAndWar("some", getCurrentWarId)))
+    Ok(jsonService.transformReservationsToJsArray(Reservations.findByStatusAndWar("some", War.getCurrentWarId)))
   }
 
   def addWish(name: String, number: String) = Action {
-    Reservations.create(new Reservations(0, name, number, "temporary", getCurrentWarId))
-    Ok(jsonService.transformReservationsToJsArray(Reservations.findByStatusAndWar("temporary", getCurrentWarId)))
+    Reservations.create(new Reservations(0, name, number, "temporary", War.getCurrentWarId))
+    Ok(jsonService.transformReservationsToJsArray(Reservations.findByStatusAndWar("temporary", War.getCurrentWarId)))
   }
 
   def loadWishes = Action {
-    Ok(jsonService.transformReservationsToJsArray(Reservations.findByStatusAndWar("temporary", getCurrentWarId)))
+    Ok(jsonService.transformReservationsToJsArray(Reservations.findByStatusAndWar("temporary", War.getCurrentWarId)))
   }
   
   def loadCurrentWar = Action {
     Ok(jsonService.transformWarToJsObject(War.findCurrentWar))
-  }
-  
-  def getCurrentWarId() : Int = {
-    War.findCurrentWar() match {
-      case Some(war) => war.id
-      case None => 0
-    }
   }
 
 }

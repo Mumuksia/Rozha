@@ -19,7 +19,7 @@ val reservationFile = "reservations.txt"
   }
 
   def loadReservations = Action{
-    Ok(jsonService.transformReservationsToJsArray(Reservations.findByStatusAndWar("some", getCurrentWarId)))            
+    Ok(jsonService.transformReservationsToJsArray(Reservations.findByStatusAndWar("some", War.getCurrentWarId)))            
   }
   
   def deleteReservation(id: String) = Action{
@@ -27,22 +27,15 @@ val reservationFile = "reservations.txt"
   }
   
   def addReservation(name: String, number: String, approvedBy: String) = Action{
-    Reservations.create(new Reservations(0, name, number, "some", getCurrentWarId))
-    Ok(jsonService.transformReservationsToJsArray(Reservations.findByStatusAndWar("some", getCurrentWarId)))    
+    Reservations.create(new Reservations(0, name, number, "some", War.getCurrentWarId))
+    Ok(jsonService.transformReservationsToJsArray(Reservations.findByStatusAndWar("some", War.getCurrentWarId)))    
   }
   
   def startWar(name: String, note: String) = Action {
     println("asdasdasd")
-    War.closeCurrent(getCurrentWarId)
+    War.closeCurrent(War.getCurrentWarId)
     War.createCurrent(name, note)
     Ok(jsonService.transformWarToJsObject(War.findCurrentWar))
   }
   
-  def getCurrentWarId() : Int = {
-    War.findCurrentWar() match {
-      case Some(war) => war.id
-      case None => 0
-    }
-  }
-
 }

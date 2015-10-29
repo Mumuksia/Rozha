@@ -59,13 +59,6 @@ class Messages extends Controller with Pjax with AuthElement with AuthConfigImpl
     Ok(html.rozha())
   }
   
-  def getCurrentWarId() : Int = {
-    War.findCurrentWar() match {
-      case Some(war) => war.id
-      case None => 0
-    }
-  }
-
   protected val fullTemplate: User => Template = html.fullTemplate.apply
 
 }

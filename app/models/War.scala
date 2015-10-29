@@ -82,6 +82,13 @@ object War{
     }
   }
   
+  def getCurrentWarId() : Int = {
+    War.findCurrentWar() match {
+      case Some(war) => war.id
+      case None => 0
+    }
+  }
+  
 }
   
 
