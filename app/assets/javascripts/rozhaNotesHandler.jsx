@@ -101,9 +101,9 @@ var Note = React.createClass({
 
     return (
             <div className="row">
-                <div className="col-md-3">{this.props.name}</div>     
-                <div className="col-md-2">{this.props.description}</div> 
-                <div className="col-md-3">{this.props.noteBy}</div>
+                <div className="col-md-1"><b>{this.props.name}</b></div>     
+                <div className="col-md-5">{this.props.description}</div> 
+                <div className="col-md-2">{this.props.noteBy}</div>
                 <div className="col-md-4"></div>
             </div>
             
