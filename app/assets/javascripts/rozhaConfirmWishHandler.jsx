@@ -40,7 +40,6 @@ var WishBox = React.createClass({
       <div className="wishesBox">
         <h1>Wishes</h1>        
         <WishList data={this.state.data} />
-        <WishForm onWishSubmit={this.handleWishSubmit}/>
       </div>
     );
   }
@@ -50,7 +49,7 @@ var WishList = React.createClass({
   render: function() {
     var wishNodes = this.props.data.map(function (wish) {
       return (
-              <div>
+         <div>
         <Wish key={wish.id} name={wish.Name} number={wish.Number}>          
         </Wish>    
         </div>
@@ -65,39 +64,13 @@ var WishList = React.createClass({
   }
 });
 
-var WishForm = React.createClass({
-  handleSubmit: function(e) {
-    e.preventDefault();
-    var name = React.findDOMNode(this.refs.name).value.trim();
-    var number = React.findDOMNode(this.refs.number).value.trim();
-    if (!name || !number) {
-      return;
-    }
-
-    this.props.onWishSubmit({name: name, number: number});
-
-    React.findDOMNode(this.refs.name).value = '';
-    React.findDOMNode(this.refs.number).value = '';
-    return;
-  },
-  render: function() {
-    return (
-      <form className="wishForm" onSubmit={this.handleSubmit}>
-        <input type="text" placeholder="Clan Name" ref="name" />
-        <input type="text" placeholder="Wish Number" ref="number" />
-        <input type="submit" value="Post" />
-      </form>
-    );
-  }
-});
-
 var Wish = React.createClass({
   render: function() {
     var rawMarkup = this.props.name;
 
     return (
             <div className="row">
-                <div className="col-md-3">{this.props.name}</div>     
+                <div className="col-md-3"><b>{this.props.name}</b></div>     
                 <div className="col-md-2">{this.props.number}</div> 
                 <div className="col-md-3"></div>
                 <div className="col-md-4"></div>
