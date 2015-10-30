@@ -83,8 +83,9 @@ var WishList = React.createClass({
 });
 
 var Wish = React.createClass({
-  handleClick: function(e){        
+  handleClick: function(e, key){        
     var commentId = this.props.key;
+    console.log(key);
     return this.props.onDelete(commentId);
   },
   render: function() {
@@ -94,7 +95,7 @@ var Wish = React.createClass({
             <div className="row">
                 <div className="col-md-4"><b>{this.props.name}</b></div>     
                 <div className="col-md-2">{this.props.number}</div> 
-                <div className="col-md-2"><a onClick={this.handleClick.bind(null, this)}>delete</a></div>
+                <div className="col-md-2"><a onClick={this.handleClick.bind(null, this.props.key)}>delete</a></div>
                 <div className="col-md-4"></div>
             </div>
             

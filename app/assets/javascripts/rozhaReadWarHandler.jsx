@@ -22,7 +22,7 @@ var CommentBox = React.createClass({
   render: function() {
     return (
       <div className="commentBox">
-        <h1>Reservations</h1>        
+        <h1>Підтверджені бронювання</h1>        
         <CommentList data={this.state.data} />
       </div>
     );

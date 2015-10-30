@@ -38,7 +38,7 @@ var WishBox = React.createClass({
   render: function() {
     return (
       <div className="wishesBox">
-        <h1>Wishes</h1>        
+        <h1>Побажання</h1>        
         <WishList data={this.state.data} />
         <WishForm onWishSubmit={this.handleWishSubmit}/>
       </div>

@@ -84,7 +84,7 @@ object War{
   
   def getCurrentWarId() : Int = {
     War.findCurrentWar() match {
-      case Some(war) => war.id
+      case Some(war) => 1
       case None => 0
     }
   }
