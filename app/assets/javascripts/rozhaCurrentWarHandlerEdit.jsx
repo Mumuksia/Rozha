@@ -45,7 +45,7 @@ var WarInfoBox = React.createClass({
       <form className="commentForm" onSubmit={this.handleSubmit}>
         <input type="text" placeholder="Clan War Name" ref="warName" />
         <input type="text" placeholder="Clan War Note" ref="note" />
-        <input type="submit" value="Post" />
+        <input type="submit" value="Нов війна" />
       </form>
     );
   }
