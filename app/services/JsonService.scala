@@ -3,6 +3,7 @@ package services
 import java.io._
 import scala.io.Source
 import models.Notes
+import models.Participation
 import models.Reservations
 import models.War
 import play.api.libs.json.{JsArray, Json, JsObject, JsValue}
@@ -42,6 +43,10 @@ class JsonService {
       JSON_KEY_START_DESC-> note.description);
     }
     
+      def transformParticipationToJsonRow(participation: Participation) : JsObject = {
+      Json.obj(JSON_KEY_ID -> participation.id.toString, JSON_KEY_Name -> participation.name, JSON_KEY_STATUS -> participation.status);
+    }
+    
   def transformToWishRow(name: String, number: String) : JsObject = {
     Json.obj(JSON_KEY_ID -> UUID.randomUUID().toString, JSON_KEY_Name -> name, JSON_KEY_Number -> number, JSON_KEY_STATUS -> "temporary");
   }
@@ -51,8 +56,13 @@ class JsonService {
     jsData.foldLeft(JsArray())((acc, x) => acc ++ Json.arr(x))
   }
   
-    def transformNotesToJsArray(notes: Seq[Notes]) : JsArray = {
+  def transformNotesToJsArray(notes: Seq[Notes]) : JsArray = {
     val jsData = notes.map( x => transformNoteToJsonRow(x)):Seq[JsObject]
+    jsData.foldLeft(JsArray())((acc, x) => acc ++ Json.arr(x))
+  }
+  
+  def transformParticipationsToJsArray(participations: Seq[Participation]) : JsArray = {
+    val jsData = participations.map( x => transformParticipationToJsonRow(x)):Seq[JsObject]
     jsData.foldLeft(JsArray())((acc, x) => acc ++ Json.arr(x))
   }
   

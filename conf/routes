@@ -17,6 +17,9 @@ GET         /loadWishes             controllers.Application.loadWishes
 POST         /addWish             controllers.Application.addWish(name, number)
 POST         /startWar            controllers.WarController.startWar(name, note)
 
+GET         /loadParticipants             controllers.ParticipationController.loadParticipants
+POST         /addParticipant            controllers.ParticipationController.addParticipant(name)
+
 GET         /loadCurrentWarInfo   controllers.Application.loadCurrentWar
 
 
