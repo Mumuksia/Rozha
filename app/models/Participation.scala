@@ -31,6 +31,22 @@ object Participation{
       as(allRowsListParser)
     }
   }
+  
+  def findAllByStatus(status: String): Seq[Participation] = {
+    DB.withConnection { implicit c =>
+      SQL("select * from Participation where status = {status}").
+      on('status -> status).
+      as(allRowsListParser)
+    }
+  }
+  
+  def closeAllOpen(): Seq[Participation] = {
+    DB.withConnection { implicit c =>
+      SQL("select * from Participation where status = {status}").
+      on('status -> status).
+      as(allRowsListParser)
+    }
+  }
 
   def create(participation: Participation) {
     DB.withConnection { implicit c =>

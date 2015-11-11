@@ -18,12 +18,12 @@ val jsonService = new JsonService
   }
 
   def loadParticipants = Action{
-    Ok(jsonService.transformParticipationsToJsArray(Participation.findAll))            
+    Ok(jsonService.transformParticipationsToJsArray(Participation.findAllByStatus("new")))            
   }
   
   def addParticipant(name: String) = Action{
     Participation.create(name, "new")
-    Ok(jsonService.transformParticipationsToJsArray(Participation.findAll))
+    Ok(jsonService.transformParticipationsToJsArray(Participation.findAllByStatus("new")))
   }
 }
 
