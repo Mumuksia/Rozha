@@ -42,8 +42,7 @@ object Participation{
   
   def closeAllOpen(): Seq[Participation] = {
     DB.withConnection { implicit c =>
-      SQL("select * from Participation where status = {status}").
-      on('status -> status).
+      SQL("UPDATE Participation SET status = 'closed' WHERE status = 'new'").
       as(allRowsListParser)
     }
   }
