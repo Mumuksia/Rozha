@@ -37,8 +37,7 @@ var NotesBox = React.createClass({
   },
   render: function() {
     return (
-      <div className="notesBox">
-        <h1>Penalties</h1>        
+      <div className="notesBox">   
         <NoteList data={this.state.data} />
         <NoteForm noNoteSubmit={this.handleNoteSubmit}/>
       </div>

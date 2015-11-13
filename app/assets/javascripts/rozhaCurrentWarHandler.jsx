@@ -21,8 +21,7 @@ var WarInfoBox = React.createClass({
   },
   render: function() {
     return (
-      <div className="warInfoBox">
-        <h4>Current open war</h4>        
+      <div className="warInfoBox">     
         <h3> {this.state.data.Name}</h3>
         <h3> {this.state.data.Note}</h3>
       </div>
