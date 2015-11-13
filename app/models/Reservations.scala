@@ -72,5 +72,12 @@ object Reservations {
         .executeUpdate()
     }
   }
+  
+  def delete(id: Int){
+     DB.withConnection { implicit c =>
+      SQL("delete from RESERVATIONS where id = {id}").on('id -> id)
+        .executeUpdate()
+    }
+  }
 
 }

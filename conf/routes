@@ -15,6 +15,7 @@ POST         /addReservation            controllers.WarController.addReservation
 POST         /addNote           controllers.NoteController.addNote(name, description, noteBy)
 GET         /loadWishes             controllers.Application.loadWishes
 POST         /addWish             controllers.Application.addWish(name, number)
+POST         /deleteWish    controllers.Application.deleteWish(id)
 POST         /startWar            controllers.WarController.startWar(name, note)
 
 GET         /loadParticipants             controllers.ParticipationController.loadParticipants
