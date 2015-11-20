@@ -80,9 +80,9 @@ var ParticipantForm = React.createClass({
   },
   render: function() {
     return (
-      <form className="participantForm" onSubmit={this.handleSubmit}>
-        <input type="text" placeholder="Кланове ім'я" ref="name" />
-        <input type="submit" value="Post" />
+      <form className="form-inline" onSubmit={this.handleSubmit}>
+        <input type="text" className="form-control" placeholder="Кланове ім'я" ref="name" />
+        <input type="submit" className="btn btn-primary" value="Хочу" />
       </form>
     );
   }

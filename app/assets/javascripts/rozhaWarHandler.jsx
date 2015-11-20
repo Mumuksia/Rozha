@@ -102,11 +102,11 @@ var CommentForm = React.createClass({
   },
   render: function() {
     return (
-      <form className="commentForm" onSubmit={this.handleSubmit}>
-        <input type="text" placeholder="Your name" ref="approvedBy" />
-        <input type="text" placeholder="Clan Name" ref="name" />
-        <input type="text" placeholder="Enemy number" ref="number" />
-        <input type="submit" value="Post" />
+      <form className="form-inline" onSubmit={this.handleSubmit}>
+        <input type="text" className="form-control" placeholder="Ім'я ведучого" ref="approvedBy" />
+        <input type="text" className="form-control" placeholder="Кланове ім'я" ref="name" />
+        <input type="text" className="form-control" placeholder="номер суперника" ref="number" />
+        <input type="submit" className="btn btn-primary" value="Підтвердити" />
       </form>
     );
   }
@@ -126,7 +126,7 @@ var Comment = React.createClass({
                 <div className="col-md-3"><b>{this.props.name}</b></div>     
                 <div className="col-md-2">{this.props.number}</div> 
                 <div className="col-md-3">{this.props.approvedBy}</div>
-                <div className="col-md-4"><a onClick={this.handleClick}>delete</a></div>
+                <div className="col-md-4"><a onClick={this.handleClick}>видалити</a></div>
             </div>
     );
   }
