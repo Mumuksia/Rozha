@@ -81,7 +81,7 @@ var ParticipantForm = React.createClass({
   render: function() {
     return (
       <form className="participantForm" onSubmit={this.handleSubmit}>
-        <input type="text" placeholder="Clan Name" ref="name" />
+        <input type="text" placeholder="Кланове ім'я" ref="name" />
         <input type="submit" value="Post" />
       </form>
     );

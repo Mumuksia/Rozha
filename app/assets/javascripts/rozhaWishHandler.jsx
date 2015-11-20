@@ -83,8 +83,8 @@ var WishForm = React.createClass({
   render: function() {
     return (
       <form className="wishForm" onSubmit={this.handleSubmit}>
-        <input type="text" placeholder="Clan Name" ref="name" />
-        <input type="text" placeholder="Wish Number" ref="number" />
+        <input type="text" placeholder="Кланове ім'я" ref="name" />
+        <input type="text" placeholder="Побажання на атаку" ref="number" />
         <input type="submit" value="Post" />
       </form>
     );
