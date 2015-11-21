@@ -20,7 +20,7 @@ val reservationFile = "reservations.txt"
   }
 
   def loadReservations = Action{
-    Ok(jsonService.transformReservationsToJsArray(Reservations.findByStatusAndWar("some", War.getCurrentWarId)))            
+    Ok(jsonService.transformReservationsToJsArray(Reservations.findByStatusAndWar("some", War.getCurrentWarId).sortWith(_.number.toInt < _.number.toInt)))            
   }
   
   def deleteReservation(id: String) = Action{
