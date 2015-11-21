@@ -12,9 +12,9 @@ var App = React.createClass({
     </thead>
     <tbody>
       <tr>
-        <td>John</td>
-        <td>Doe</td>
-        <td>john@example.com</td>
+        <td>todo</td>
+        <td>todo</td>
+        <td>todo</td>
       </tr>
     </tbody>
   </table>
