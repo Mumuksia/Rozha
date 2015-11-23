@@ -28,8 +28,8 @@ class Application extends Controller {
     Ok(jsonService.transformReservationsToJsArray(Reservations.findByStatusAndWar("some", War.getCurrentWarId)))
   }
 
-  def addWish(name: String, number: String) = Action {
-    Reservations.create(new Reservations(0, name, number, "temporary", War.getCurrentWarId))
+  def addWish(name: String, number: String) = Action { request =>
+    Reservations.create(new Reservations(0, name, number, "temporary", War.getCurrentWarId, request.remoteAddress))
     Ok(jsonService.transformReservationsToJsArray(Reservations.findByStatusAndWar("temporary", War.getCurrentWarId)))
   }
 

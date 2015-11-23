@@ -5,7 +5,7 @@ import play.api.Play._
 import anorm._
 import anorm.SqlParser._
 
-case class Reservations(id: Int, name: String, number: String, status: String, warId: Int)
+case class Reservations(id: Int, name: String, number: String, status: String, warId: Int, remoteAddress: String)
 
 object Reservations {
 
@@ -14,10 +14,11 @@ object Reservations {
     SqlParser.str("name") ~
     SqlParser.str("number") ~
     SqlParser.str("status") ~
-    SqlParser.int("warId")
+    SqlParser.int("warId") ~
+    SqlParser.str("remoteAddress")
   ) map {
-      case id ~ name ~ number ~ status ~ warId =>
-        Reservations(id, name, number, status, warId)
+      case id ~ name ~ number ~ status ~ warId ~ remoteAddress=>
+        Reservations(id, name, number, status, warId, remoteAddress)
     }
 
   val allRowsParser: ResultSetParser[Reservations] = reservationsParser.single
@@ -50,8 +51,9 @@ object Reservations {
 
   def create(reservation: Reservations) {
     DB.withConnection { implicit c =>
-      SQL("insert into RESERVATIONS(name, number, status, warId) values ({name}, {number}, {status}, {warId})").
-        on( 'name -> reservation.name, 'number -> reservation.number, 'status -> reservation.status, 'warId -> reservation.warId).
+      SQL("insert into RESERVATIONS(name, number, status, warId, remoteAddress) values ({name}, {number}, {status}, {warId}, {remoteAddress})").
+        on( 'name -> reservation.name, 'number -> reservation.number, 'status -> reservation.status, 
+           'warId -> reservation.warId, 'remoteAddress -> reservation.remoteAddress).
         executeInsert()
     }
   }

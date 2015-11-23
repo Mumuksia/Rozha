@@ -5,7 +5,7 @@ import play.api.Play._
 import anorm._
 import anorm.SqlParser._
 
-case class User(id: Int, name: String, clanId: String, status: String)
+case class User(id: Int, name: String, clanId: String, status: String, remoteAddress: String)
 
 object User {
   
@@ -13,10 +13,11 @@ object User {
     SqlParser.int("id") ~
     SqlParser.str("name") ~
     SqlParser.str("clanId") ~
-    SqlParser.str("status")
+    SqlParser.str("status") ~
+    SqlParser.str("remoteAddress")
   ) map {
-      case id ~ name ~ clanId ~ status =>
-        User(id, name, clanId, status)
+      case id ~ name ~ clanId ~ status ~ remoteAddress=>
+        User(id, name, clanId, status, remoteAddress)
     }
 
   val allRowsParser: ResultSetParser[User] = accountParser.single
