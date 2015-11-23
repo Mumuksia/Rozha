@@ -48,7 +48,6 @@ var CommentList = React.createClass({
 
 var Comment = React.createClass({
   render: function() {
-    var rawMarkup = this.props.name;
 
     return (
             <div className="row">

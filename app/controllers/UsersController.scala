@@ -18,6 +18,11 @@ def loadUsers = Action {
   request => 
   Ok(jsonService.transformUsersToJsArray(User.findAll))
 }  
+
+def addUser(clanId: String, name: String, status: String) = Action{
+    User.create(clanId, name, status, "some")
+    Ok(jsonService.transformUsersToJsArray(User.findAll))
+}
   
 }
 

@@ -44,5 +44,14 @@ object User {
    
   }
   
+  def create(clanId: String, name: String, status: String, remoteAddress: String){
+    DB.withConnection { implicit c =>
+      SQL("insert into public.User(name, status, clanId, remoteAddress) values ({name}, {status}, {clanId}, {remoteAddress})").
+        on( 'name -> name, 'status -> status, 'clanId -> clanId,
+        'remoteAddress -> remoteAddress).
+        executeInsert()
+    }
+  }
+  
 }
 

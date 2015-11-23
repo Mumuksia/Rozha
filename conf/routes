@@ -39,6 +39,7 @@ POST        /standard/login                       controllers.Sessions.authentic
 GET         /standard/logout                      controllers.Sessions.logout
 
 GET         /loadUsers                      controllers.UsersController.loadUsers
+POST         /addUser                       controllers.UsersController.addUser(clanId, name, status)
 
 
 # Map static resources from the /public folder to the /assets URL path
