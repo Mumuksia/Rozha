@@ -27,8 +27,8 @@ val reservationFile = "reservations.txt"
     Ok(Json.parse(fileService.readFromFile(reservationFile)))            
   }
   
-  def addReservation(name: String, number: String, approvedBy: String) = Action{
-    Reservations.create(new Reservations(0, name, number, "some", War.getCurrentWarId))
+  def addReservation(name: String, number: String, approvedBy: String) = Action{ request => 
+    Reservations.create(new Reservations(0, name, number, "some", War.getCurrentWarId, request.remoteAddress))
     Ok(jsonService.transformReservationsToJsArray(Reservations.findByStatusAndWar("some", War.getCurrentWarId)))    
   }
   

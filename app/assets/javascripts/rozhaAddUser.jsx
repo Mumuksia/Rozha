@@ -12,6 +12,22 @@ var StatBox = React.createClass({
       }.bind(this)
     });
   },
+  onUserSubmit: function(user) {
+    var userUrl = "/addUser?clanId=" + user.clanId + "&name=" + user.name + "&status=" + user.status;
+
+    $.ajax({
+      url: userUrl,
+      dataType: 'json',
+      type: 'POST',
+      data: user,
+      success: function(data) {
+        this.setState({data: data});
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
   getInitialState: function() {
     return {data: []};
   },
@@ -23,6 +39,7 @@ var StatBox = React.createClass({
     return (
       <div className="notesBox">   
         <UserList data={this.state.data} />
+        <UserForm onUserSubmit={this.onUserSubmit} />
       </div>
     );
   }
@@ -57,6 +74,36 @@ var User = React.createClass({
                 <div className="col-md-4"></div>
             </div>
             
+    );
+  }
+});
+
+var UserForm = React.createClass({
+  handleSubmit: function(e) {
+    e.preventDefault();
+    var status = React.findDOMNode(this.refs.status).value.trim();
+    var name = React.findDOMNode(this.refs.name).value.trim();
+    var clanId = React.findDOMNode(this.refs.clanId).value.trim();
+    if (!name || !clanId || !status) {
+      return;
+    }
+
+    this.props.onUserSubmit({status: status, name: name, clanId: clanId});
+
+    // clears the form fields
+    React.findDOMNode(this.refs.status).value = '';
+    React.findDOMNode(this.refs.name).value = '';
+    React.findDOMNode(this.refs.clanId).value = '';
+    return;
+  },
+  render: function() {
+    return (
+      <form className="form-inline" onSubmit={this.handleSubmit}>
+        <input type="text" className="form-control" placeholder="Статус гравця" ref="status" />
+        <input type="text" className="form-control" placeholder="Кланове ім'я" ref="name" />
+        <input type="text" className="form-control" placeholder="Кланове ід" ref="clanId" />
+        <input type="submit" className="btn btn-primary" value="Додати" />
+      </form>
     );
   }
 });

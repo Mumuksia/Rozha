@@ -6,37 +6,46 @@
 GET         /                     controllers.Application.index
 
 # APIs
-GET         /loadWar             controllers.WarController.loadReservations
-DELETE         /loadWar/:id             controllers.WarController.deleteReservation(id)
-GET         /loadNotes             controllers.NoteController.loadNotes
-GET         /init             controllers.WarController.initFile
-GET         /history             controllers.Application.loadData
+GET          /loadWar                   controllers.WarController.loadReservations
+GET          /init                      controllers.WarController.initFile
+DELETE       /loadWar/:id               controllers.WarController.deleteReservation(id)
 POST         /addReservation            controllers.WarController.addReservation(name, number, approvedBy)
-POST         /addNote           controllers.NoteController.addNote(name, description, noteBy)
-GET         /loadWishes             controllers.Application.loadWishes
-POST         /addWish             controllers.Application.addWish(name, number)
-POST         /deleteWish    controllers.Application.deleteWish(id)
-POST         /startWar            controllers.WarController.startWar(name, note)
+POST         /startWar                  controllers.WarController.startWar(name, note)
 
-GET         /loadParticipants             controllers.ParticipationController.loadParticipants
+GET          /loadNotes                 controllers.NoteController.loadNotes
+POST         /addNote                   controllers.NoteController.addNote(name, description, noteBy)
+
+
+GET          /history                   controllers.Application.loadData
+GET          /loadWishes                controllers.Application.loadWishes
+GET          /loadCurrentWarInfo        controllers.Application.loadCurrentWar
+POST         /addWish                   controllers.Application.addWish(name, number)
+POST         /deleteWish                controllers.Application.deleteWish(id)
+
+
+GET          /loadParticipants          controllers.ParticipationController.loadParticipants
 POST         /addParticipant            controllers.ParticipationController.addParticipant(name)
 
-GET         /loadCurrentWarInfo   controllers.Application.loadCurrentWar
+GET         /standard/messages/main               controllers.Messages.main
+GET         /standard/messages/list               controllers.Messages.list
+GET         /standard/messages/detail/:id         controllers.Messages.detail(id: Int)
+GET         /standard/messages/write              controllers.Messages.write
+GET         /standard/messages/create             controllers.Messages.createReservations
+GET         /standard/messages/clear              controllers.Messages.cleanReservations
+GET         /standard/messages/cleartable         controllers.Messages.cleanReservationsTable
+
+GET         /login                                controllers.Sessions.login
+POST        /standard/login                       controllers.Sessions.authenticate
+GET         /standard/logout                      controllers.Sessions.logout
+
+GET         /loadUsers                      controllers.UsersController.loadUsers
+POST         /addUser                       controllers.UsersController.addUser(clanId, name, status)
 
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file         controllers.Assets.versioned(path="/public", file: Asset)
 GET         /webjars/*file        controllers.WebJarAssets.at(file)
 
-GET     /standard/messages/main               controllers.Messages.main
-GET     /standard/messages/list               controllers.Messages.list
-GET     /standard/messages/detail/:id         controllers.Messages.detail(id: Int)
-GET     /standard/messages/write              controllers.Messages.write
 
-GET     /standard/messages/create             controllers.Messages.createReservations
-GET     /standard/messages/clear              controllers.Messages.cleanReservations
-GET     /standard/messages/cleartable             controllers.Messages.cleanReservationsTable
 
-GET     /login                                     controllers.Sessions.login
-POST    /standard/login                       controllers.Sessions.authenticate
-GET     /standard/logout                      controllers.Sessions.logout
+
