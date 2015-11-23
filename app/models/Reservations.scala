@@ -63,7 +63,7 @@ object Reservations {
 
   def clearAll(status: String) {
     DB.withConnection { implicit c =>
-      SQL("delete from RESERVATIONS where status = {status}").on('status -> status)
+      SQL("update RESERVATIONS SET status = 'deleted' where status = {status}").on('status -> status)
         .executeUpdate()
     }
   }
@@ -77,7 +77,7 @@ object Reservations {
   
   def delete(id: Int){
      DB.withConnection { implicit c =>
-      SQL("delete from RESERVATIONS where id = {id}").on('id -> id)
+      SQL("update RESERVATIONS SET status = 'deleted' where id = {id}").on('id -> id)
         .executeUpdate()
     }
   }
