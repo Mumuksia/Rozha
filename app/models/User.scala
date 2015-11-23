@@ -35,7 +35,7 @@ object User {
 
   def findAll(): Seq[User] = {
     DB.withConnection { implicit c =>
-      SQL("select * from User").
+      SQL("select * from public.User").
       as(allRowsListParser)
     }
   }
