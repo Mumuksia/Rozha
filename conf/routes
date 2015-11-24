@@ -24,7 +24,9 @@ POST         /deleteWish                controllers.Application.deleteWish(id)
 
 
 GET          /loadParticipants          controllers.ParticipationController.loadParticipants
+GET          /loadParticipantsSecond    controllers.ParticipationController.loadParticipantsSecond
 POST         /addParticipant            controllers.ParticipationController.addParticipant(name)
+POST         /addParticipantSecond      controllers.ParticipationController.addParticipantSecond(name)
 
 GET         /standard/messages/main               controllers.Messages.main
 GET         /standard/messages/list               controllers.Messages.list

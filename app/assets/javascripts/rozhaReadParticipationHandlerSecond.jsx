@@ -13,7 +13,7 @@ var ParticipantBox = React.createClass({
     });
   },
   handleParticipantSubmit: function(participant) {
-    var participantUrl = "/addParticipant?name=" + participant.name;
+    var participantUrl = "/addParticipantSecond?name=" + participant.name;
 
     $.ajax({
       url: participantUrl,
@@ -38,7 +38,7 @@ var ParticipantBox = React.createClass({
   render: function() {
     return (
       <div className="wishesBox">
-        <h1>Хочу в кв у Вівторок</h1>        
+        <h1>Хочу в кв у Суботу</h1>        
         <ParticipantList data={this.state.data} />
         <ParticipantForm onParticipantSubmit={this.handleParticipantSubmit}/>
       </div>
@@ -105,5 +105,5 @@ var Participant = React.createClass({
 });
 
 React.render(
-  <ParticipantBox url="/loadParticipants" pollInterval={20000} />,
-  document.getElementById('participationNode'));
+  <ParticipantBox url="/loadParticipantsSecond" pollInterval={20000} />,
+  document.getElementById('participationNodeSecond'));
