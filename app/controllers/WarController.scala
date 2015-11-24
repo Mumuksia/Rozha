@@ -35,7 +35,6 @@ val reservationFile = "reservations.txt"
   def startWar(name: String, note: String) = Action {    
     War.closeCurrent(War.getCurrentWarId)
     War.createCurrent(name, note)
-    Participation.closeAllOpen
     Ok(jsonService.transformWarToJsObject(War.findCurrentWar))
   }
   
