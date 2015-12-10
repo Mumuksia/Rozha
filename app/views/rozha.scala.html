@@ -30,6 +30,7 @@
                         <li><a data-toggle="tab" href="#menu2">Порушення</a></li>
                         <li><a data-toggle="tab" href="#menu3">Про клан</a></li>
                         <li><a data-toggle="tab" href="#menu4">Правила</a></li>
+                        <li><a data-toggle="tab" href="#menu5">Запис на кв</a></li>
                     </ul>
 
                     <div class="tab-content">
@@ -55,6 +56,14 @@
                         <div id="menu4" class="tab-pane fade">                         
                             <div id="rulesNode"></div>
                         </div>
+                                                <div id="menu5" class="tab-pane fade"> 
+                                        <div class="row">
+                                         <div class="col-md-1"></div> 
+                                        <div class="col-md-5" id="participationNode"></div>
+                                        <div class="col-md-5" id="participationNodeSecond"></div>
+                                        <div class="col-md-1"></div> 
+                                        </div>
+                        </div>
                     </div>
 
                 </div>
@@ -69,5 +78,7 @@
         <script type='text/javascript' src='@routes.Assets.versioned("javascripts/rozhaRulesHandler.js")'></script>
         <script type='text/javascript' src='@routes.Assets.versioned("javascripts/rozhaCurrentWarHandlerEdit.js")'></script>
         <script type='text/javascript' src='@routes.Assets.versioned("javascripts/rozhaConfirmWishHandler.js")'></script>
+                <script type='text/javascript' src='@routes.Assets.versioned("javascripts/rozhaReadParticipationHandler.js")'></script>
+        <script type='text/javascript' src='@routes.Assets.versioned("javascripts/rozhaReadParticipationHandlerSecond.js")'></script>
     </body>
 </html>

@@ -56,6 +56,13 @@ object Participation{
       as(allRowsListParser)
     }
   }
+  
+  def clearForDayAndWeek(day: String, week: String) = {
+    DB.withConnection { implicit c =>
+      SQL("UPDATE Participation SET status = 'closed' WHERE dayofweek = {day} and weeknumber = {week}").
+      on('day->day, 'week->week)
+    }
+  }
 
   def create(participation: Participation) {
     DB.withConnection { implicit c =>

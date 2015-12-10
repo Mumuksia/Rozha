@@ -35,6 +35,7 @@ GET         /standard/messages/write              controllers.Messages.write
 GET         /standard/messages/create             controllers.Messages.createReservations
 GET         /standard/messages/clear              controllers.Messages.cleanReservations
 GET         /standard/messages/cleartable         controllers.Messages.cleanReservationsTable
+GET        /standard/messages/cleanParticipantsForDay controllers.Messages.cleanParticipantsForDay(day)
 
 GET         /login                                controllers.Sessions.login
 POST        /standard/login                       controllers.Sessions.authenticate
