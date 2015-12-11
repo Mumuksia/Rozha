@@ -69,7 +69,7 @@ var WishList = React.createClass({
     var wishNodes = this.props.data.map(function (wish) {
       return (
          <div>
-        <Wish keyId={wish.id} name={wish.Name} number={wish.Number} onDelete={this.handleDelete}>          
+        <Wish keyId={wish.id} name={wish.Name} number={wish.Number} address={wish.RemoteAddress} onDelete={this.handleDelete}>          
         </Wish> 
         </div>
       );
@@ -92,9 +92,9 @@ var Wish = React.createClass({
     var rawMarkup = this.props.name;
     return (
             <div className="row">                
-                <div className="col-md-4"><b>{this.props.name}</b></div>     
+                <div className="col-md-3"><b>{this.props.name}</b></div>     
                 <div className="col-md-1">{this.props.number}</div> 
-                <div className="col-md-1">{this.props.address}</div> 
+                <div className="col-md-2">{this.props.address}</div> 
                 <div className="col-md-2"><a onClick={this.handleClick.bind(null, this.props.keyId)}>delete</a></div>
                 <div className="col-md-4"></div>
             </div>
