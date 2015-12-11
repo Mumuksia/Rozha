@@ -28,21 +28,20 @@ var CommentBox = React.createClass({
       }.bind(this)
     });
   },
-  delc: function(commentId){
-    console.log(commentId)
-      var delUrl = "/loadWar?id=" + commentId
+  deleteTask: function(commentId) {
+    var deleteUrl = "/deleteWishByNumber?number=" + commentId;
     $.ajax({
-      url: this.props.delUrl,
-      data: commentId,
-      type: 'POST',
+      url: deleteUrl,
       dataType: 'json',
-      success: function (data) {
+      type: 'POST',
+      data: commentId,
+      success: function(data) {
         this.setState({data: data});
-      }.bind(this), 
+      }.bind(this),
       error: function(xhr, status, err) {
         console.error(this.props.url, status, err.toString());
       }.bind(this)
-      });
+    });
   },
   getInitialState: function() {
     return {data: []};
@@ -55,7 +54,7 @@ var CommentBox = React.createClass({
     return (
       <div className="commentBox">
         <h1>Reservations</h1>        
-        <CommentList data={this.state.data} del={this.delc} />
+        <CommentList data={this.state.data} deleteTask={this.deleteTask} />
         <CommentForm onCommentSubmit={this.handleCommentSubmit} />
       </div>
     );
@@ -64,12 +63,12 @@ var CommentBox = React.createClass({
 
 var CommentList = React.createClass({
   handleDelete: function(commentId){
-    return this.props.del(commentId);
+    return this.props.deleteTask(commentId);
   },
   render: function() {
     var commentNodes = this.props.data.map(function (comment) {
       return (
-        <Comment key={comment.id} approvedBy={comment.ApprovedBy} number={comment.Number} name={comment.Name} onDelete = {this.handleDelete}>          
+        <Comment keyId={comment.id} approvedBy={comment.ApprovedBy} number={comment.Number} name={comment.Name} onDelete = {this.handleDelete}>          
         </Comment>        
       );
     }.bind(this));
@@ -113,9 +112,8 @@ var CommentForm = React.createClass({
 });
 
 var Comment = React.createClass({
-  handleClick: function(e){
-    e.preventDefault();
-    var commentId = this.props.key;
+  handleClick: function(e, keyId){        
+    var commentId = this.props.keyId;
     return this.props.onDelete(commentId);
   },
   render: function() {
@@ -126,7 +124,7 @@ var Comment = React.createClass({
                 <div className="col-md-3"><b>{this.props.name}</b></div>     
                 <div className="col-md-2">{this.props.number}</div> 
                 <div className="col-md-3">{this.props.approvedBy}</div>
-                <div className="col-md-4"><a onClick={this.handleClick}>видалити</a></div>
+                <div className="col-md-4"><a onClick={this.handleClick.bind(null, this.props.keyId)}>видалити</a></div>
             </div>
     );
   }

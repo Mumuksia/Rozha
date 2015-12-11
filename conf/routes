@@ -21,6 +21,7 @@ GET          /loadWishes                controllers.Application.loadWishes
 GET          /loadCurrentWarInfo        controllers.Application.loadCurrentWar
 POST         /addWish                   controllers.Application.addWish(name, number)
 POST         /deleteWish                controllers.Application.deleteWish(id)
+POST         /deleteWishByNumber                controllers.Application.deleteWishByNumber(number)
 
 
 GET          /loadParticipants          controllers.ParticipationController.loadParticipants

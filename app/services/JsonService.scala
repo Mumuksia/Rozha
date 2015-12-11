@@ -38,7 +38,7 @@ class JsonService {
     
       def transformToReservationRow(res: Reservations) : JsObject = {
         Json.obj(JSON_KEY_ID -> res.id.toString, JSON_KEY_Name -> res.name, JSON_KEY_Number -> res.number, 
-        JSON_KEY_STATUS -> res.status);
+        JSON_KEY_STATUS -> res.status, JSON_KEY_REMOTE_ADDRESS -> res.remoteAddress);
     }
     
     def transformNoteToJsonRow(note: Notes) : JsObject = {

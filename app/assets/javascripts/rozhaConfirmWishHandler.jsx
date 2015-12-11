@@ -93,7 +93,8 @@ var Wish = React.createClass({
     return (
             <div className="row">                
                 <div className="col-md-4"><b>{this.props.name}</b></div>     
-                <div className="col-md-2">{this.props.number}</div> 
+                <div className="col-md-1">{this.props.number}</div> 
+                <div className="col-md-1">{this.props.address}</div> 
                 <div className="col-md-2"><a onClick={this.handleClick.bind(null, this.props.keyId)}>delete</a></div>
                 <div className="col-md-4"></div>
             </div>

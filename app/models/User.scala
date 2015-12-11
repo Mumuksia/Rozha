@@ -44,6 +44,14 @@ object User {
    
   }
   
+  def findAllByStatus(status: String): Seq[User] = {
+      DB.withConnection { implicit c =>
+      SQL("select * from public.User where status = {status}").
+      on('status -> status).
+      as(allRowsListParser)
+    }
+  }
+  
   def create(clanId: String, name: String, status: String, remoteAddress: String){
     DB.withConnection { implicit c =>
       SQL("insert into public.User(name, status, clanId, remoteAddress) values ({name}, {status}, {clanId}, {remoteAddress})").

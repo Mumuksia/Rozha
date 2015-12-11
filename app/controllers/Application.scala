@@ -42,6 +42,11 @@ class Application extends Controller {
     Ok(jsonService.transformReservationsToJsArray(Reservations.findByStatusAndWar("temporary", War.getCurrentWarId)))
   }
   
+  def deleteWishByNumber(number: String) = Action {
+    Reservations.delete(number.toInt)
+    Ok(jsonService.transformReservationsToJsArray(Reservations.findByStatusAndWar("some", War.getCurrentWarId)))
+  }
+  
   def loadCurrentWar = Action {
     Ok(jsonService.transformWarToJsObject(War.findCurrentWar))
   }

@@ -81,5 +81,13 @@ object Reservations {
         .executeUpdate()
     }
   }
+  
+  def deleteByNumber(number: String){
+      println(number)
+     DB.withConnection { implicit c =>
+      SQL("update RESERVATIONS SET status = 'deleted' where number = {number}").on('number -> number)
+        .executeUpdate()
+    }
+  }
 
 }
