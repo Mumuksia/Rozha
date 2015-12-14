@@ -42,7 +42,7 @@ object Participation{
     }
   }
   
-    def findAllByStatusAndWeekAndDay(status: String, week: String, day: String): Seq[Participation] = {
+  def findAllByStatusAndWeekAndDay(status: String, week: String, day: String): Seq[Participation] = {
     DB.withConnection { implicit c =>
       SQL("select * from Participation where status = {status} and dayofweek = {day} and weeknumber = {week}").
       on('status -> status, 'day->day, 'week->week).
@@ -60,7 +60,17 @@ object Participation{
   def clearForDayAndWeek(day: String, week: String) = {
     DB.withConnection { implicit c =>
       SQL("UPDATE Participation SET status = 'closed' WHERE dayofweek = {day} and weeknumber = {week}").
-      on('day->day, 'week->week)
+      on('day->day, 'week->week).
+      executeUpdate()
+    }
+  }
+  
+    def clearForDay(day: String) = {      
+    DB.withConnection { implicit c =>
+      SQL("UPDATE Participation SET status = 'closed' WHERE dayofweek = {day}").
+      on('day->day).
+      executeUpdate()
+      
     }
   }
 

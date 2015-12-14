@@ -6,10 +6,12 @@ object Role {
   
   case object Administrator extends Role
   case object NormalUser extends Role
+  case object Host extends Role
 
   def valueOf(value: String): Role = value match {
     case "Administrator" => Administrator
     case "NormalUser"    => NormalUser
+    case "KVHost"  => Host
     case _ => throw new IllegalArgumentException()
   }
 }
