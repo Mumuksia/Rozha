@@ -30,9 +30,6 @@ POST         /addParticipant            controllers.ParticipationController.addP
 POST         /addParticipantSecond      controllers.ParticipationController.addParticipantSecond(name)
 
 GET         /standard/messages/main               controllers.Messages.main
-GET         /standard/messages/list               controllers.Messages.list
-GET         /standard/messages/detail/:id         controllers.Messages.detail(id: Int)
-GET         /standard/messages/write              controllers.Messages.write
 GET         /standard/messages/create             controllers.Messages.createReservations
 GET         /standard/messages/clear              controllers.Messages.cleanReservations
 GET         /standard/messages/cleartable         controllers.Messages.cleanReservationsTable
