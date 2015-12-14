@@ -87,7 +87,7 @@ var CommentForm = React.createClass({
     var approvedBy = React.findDOMNode(this.refs.approvedBy).value.trim();
     var name = React.findDOMNode(this.refs.name).value.trim();
     var number = React.findDOMNode(this.refs.number).value.trim();
-    if (!name || !approvedBy) {
+    if (!name || !approvedBy || !number) {
       return;
     }
 
@@ -104,7 +104,7 @@ var CommentForm = React.createClass({
       <form className="form-inline" onSubmit={this.handleSubmit}>
         <input type="text" className="form-control" placeholder="Ім'я ведучого" ref="approvedBy" />
         <input type="text" className="form-control" placeholder="Кланове ім'я" ref="name" />
-        <input type="text" className="form-control" placeholder="номер суперника" ref="number" />
+        <input type="number" pattern="[0-9]*" inputmode="numeric" className="form-control" placeholder="номер суперника" ref="number" />
         <input type="submit" className="btn btn-primary" value="Підтвердити" />
       </form>
     );

@@ -84,7 +84,7 @@ var WishForm = React.createClass({
     return (
       <form className="form-inline" role="form" onSubmit={this.handleSubmit}>
         <input type="text" className="form-control" placeholder="Кланове ім'я" ref="name" />
-        <input type="text" className="form-control" placeholder="Побажання на атаку" ref="number" />
+        <input type="number" pattern="[0-9]*" inputmode="numeric" className="form-control" placeholder="Побажання на атаку" ref="number" />
         <button type="submit" className="btn btn-primary">Додати</button>
       </form>
     );
