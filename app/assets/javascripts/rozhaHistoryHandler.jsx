@@ -5,7 +5,7 @@ var StatBox = React.createClass({
       dataType: 'json',
       cache: false,
       success: function(data) {
-        this.setState({data: data});
+        this.setState({data: data.Users});
       }.bind(this),
       error: function(xhr, status, err) {
         console.error(this.props.url, status, err);
@@ -32,7 +32,7 @@ var UserList = React.createClass({
   render: function() {
     var userNodes = this.props.data.map(function (user) {
       return (
-        <User key={user.id} name={user.Name} status={user.Status} clanId={user.ClanId} remoteAddress={user.RemoteAddress}>          
+        <User key={user.id} name={user.Name} status={user.Status} clanId={user.ClanId} number={user.Number}>          
         </User>    
       );
     });
@@ -53,7 +53,7 @@ var User = React.createClass({
                 <div className="col-md-2"><b>{this.props.name}</b></div>     
                 <div className="col-md-2">{this.props.status}</div> 
                 <div className="col-md-2">{this.props.clanId}</div>
-                <div className="col-md-2">{this.props.remoteAddress}</div>
+                <div className="col-md-2">{this.props.number}</div>
                 <div className="col-md-4"></div>
             </div>
             
