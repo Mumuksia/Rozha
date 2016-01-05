@@ -40,7 +40,7 @@ POST        /standard/login                       controllers.Sessions.authentic
 GET         /standard/logout                      controllers.Sessions.logout
 
 GET         /loadUsers                      controllers.UsersController.loadUsers
-POST         /loadUsersWithUser              controllers.UsersController.loadUsersWithUser(userId)
+POST         /loadUsersWithUser              controllers.UsersController.loadUsersWithUser(userName)
 POST         /addUser                       controllers.UsersController.addUser(clanId, name, status)
 
 
