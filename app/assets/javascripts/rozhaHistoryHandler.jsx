@@ -27,6 +27,22 @@ var StatBox = React.createClass({
       }.bind(this)
     });
   },
+    handleNoteSubmit: function(note) {
+    var noteUrl = "/addNote?noteBy=" + note.noteBy + "&name=" + note.name + "&description=" + note.description;
+
+    $.ajax({
+      url: noteUrl,
+      dataType: 'json',
+      type: 'POST',
+      data: note,
+      success: function(data) {
+        this.setState({data: data});
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
   getInitialState: function() {
     return {data: [], penalties: []};
   },
@@ -40,6 +56,8 @@ var StatBox = React.createClass({
         <UserList data={this.state.data} expandUser={this.expandUser}/>
         <br/>
         <PenaltyList penalties={this.state.penalties} />
+        <br/>
+        <NoteForm noNoteSubmit={this.handleNoteSubmit}/>
       </div>
     );
   }
@@ -116,6 +134,36 @@ var User = React.createClass({
                 <div className="col-md-4"></div>
             </div>
             
+    );
+  }
+});
+
+var NoteForm = React.createClass({
+  handleSubmit: function(e) {
+    e.preventDefault();
+    var noteBy = React.findDOMNode(this.refs.noteBy).value.trim();
+    var name = React.findDOMNode(this.refs.name).value.trim();
+    var description = React.findDOMNode(this.refs.description).value.trim();
+    if (!name || !noteBy) {
+      return;
+    }
+
+    this.props.noNoteSubmit({noteBy: noteBy, name: name, description: description});
+
+    // clears the form fields
+    React.findDOMNode(this.refs.noteBy).value = '';
+    React.findDOMNode(this.refs.name).value = '';
+    React.findDOMNode(this.refs.description).value = '';
+    return;
+  },
+  render: function() {
+    return (
+      <form className="noteForm" onSubmit={this.handleSubmit}>
+        <input type="text" placeholder="Your name" ref="noteBy" />
+        <input type="text" placeholder="Clan Name" ref="name" />
+        <input type="text" placeholder="Penalty description" ref="description" />
+        <input type="submit" value="Post" />
+      </form>
     );
   }
 });
