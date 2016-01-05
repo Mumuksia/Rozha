@@ -29,6 +29,8 @@ class JsonService {
   val JSON_KEY_START_DESC = "Description"
   val JSON_KEY_CLAN_ID = "ClanId"
   val JSON_KEY_REMOTE_ADDRESS = "RemoteAddress"
+  val JSON_KEY_USERS = "Users"
+  val JSON_KEY_PENALTIES = "Penalties"
 
     
     def transformToReservationRow(name: String, number: String, approvedBy: String) : JsObject = {
@@ -49,6 +51,11 @@ class JsonService {
       def transformUserToJsonRow(user: User) : JsObject = {
       Json.obj(JSON_KEY_ID -> user.id.toString, JSON_KEY_Name -> user.name, JSON_KEY_STATUS -> user.status,
       JSON_KEY_CLAN_ID-> user.clanId, JSON_KEY_REMOTE_ADDRESS-> user.remoteAddress);
+    }
+    
+    def transformUserDTOToJsonRow(user: UserDTO) : JsObject = {
+      Json.obj(JSON_KEY_ID -> user.id.toString, JSON_KEY_Name -> user.name, JSON_KEY_STATUS -> user.status,
+      JSON_KEY_CLAN_ID-> user.clanId, JSON_KEY_REMOTE_ADDRESS-> user.remoteAddress, JSON_KEY_Number -> user.penalties.size);
     }
     
       def transformParticipationToJsonRow(participation: Participation) : JsObject = {
@@ -77,6 +84,15 @@ class JsonService {
   def transformUsersToJsArray(users: Seq[User]) : JsArray = {
     val jsData = users.map( x => transformUserToJsonRow(x)):Seq[JsObject]
     jsData.foldLeft(JsArray())((acc, x) => acc ++ Json.arr(x))
+  }
+  
+  def transformUsersDTOToJsArray(users: Seq[UserDTO]) : JsArray = {
+    val jsData = users.map( x => transformUserDTOToJsonRow(x)):Seq[JsObject]
+    jsData.foldLeft(JsArray())((acc, x) => acc ++ Json.arr(x))
+  }
+  
+  def transformUsersDTOAndPenaltiesToJsObject(users: Seq[UserDTO], penalties: Seq[Notes]) : JsObject = {    
+    Json.obj(JSON_KEY_USERS->transformUsersDTOToJsArray(users), JSON_KEY_PENALTIES-> transformNotesToJsArray(penalties))
   }
   
   def transformWarToJsObject(optionWar: Option[War]) : JsObject = {
