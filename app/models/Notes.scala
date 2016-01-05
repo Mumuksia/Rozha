@@ -33,6 +33,14 @@ object Notes{
       as(allRowsListParser)
     }
   }
+  
+  def findAllForUser(name: String): Seq[Notes] = {
+    DB.withConnection { implicit c =>
+      SQL("select * from Notes where name = {name}").
+      on('name -> name).
+      as(allRowsListParser)
+    }
+  }
 
   def create(note: Notes) {
     DB.withConnection { implicit c =>

@@ -18,12 +18,17 @@ class UsersController  extends Controller{
 
 def loadUsers = Action {
   request => 
-  Ok(jsonService.transformUsersDTOAndPenaltiesToJsObject(UserDTO.getAllUsersDTO(Notes.findAll, User.findAll), Notes.findAll))
+  Ok(jsonService.transformUsersDTOAndPenaltiesToJsObject(UserDTO.getAllUsersDTO(Notes.findAll, User.findAll), Notes.findAllForUser("Muksia")))
 }  
 
 def addUser(clanId: String, name: String, status: String) = Action{
     User.create(clanId, name, status, "some")
-    Ok(jsonService.transformUsersDTOAndPenaltiesToJsObject(UserDTO.getAllUsersDTO(Notes.findAll, User.findAll), Notes.findAll))
+    Ok(jsonService.transformUsersDTOAndPenaltiesToJsObject(UserDTO.getAllUsersDTO(Notes.findAll, User.findAll), Notes.findAllForUser(name)))
+}
+
+def loadUsersWithUser(userName: String) = Action{
+      request => 
+  Ok(jsonService.transformUsersDTOAndPenaltiesToJsObject(UserDTO.getAllUsersDTO(Notes.findAll, User.findAll), Notes.findAllForUser(userName)))
 }
   
 }
