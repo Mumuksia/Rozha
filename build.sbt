@@ -21,7 +21,9 @@ libraryDependencies ++= Seq(
   "jp.t2v" %% "play2-auth"        % "0.14.1",
   "jp.t2v" %% "play2-auth-social" % "0.14.1",  
    "org.postgresql" % "postgresql" % "9.3-1102-jdbc41",
-   "com.typesafe.play" %% "anorm" % "2.4.0"
+   "com.typesafe.play" %% "anorm" % "2.4.0",
+"org.apache.poi" % "poi" % "3.9",
+    "org.apache.poi" % "poi-ooxml" % "3.9"
 ),
     initialCommands := """
       import models._, utils._
