@@ -17,6 +17,8 @@ POST         /addNote                   controllers.NoteController.addNote(name,
 
 GET          /loadAccounts                 controllers.AccountController.loadAccounts
 POST         /addAccount                   controllers.AccountController.createAccount(name, email, password)
+POST         /editAccount                   controllers.AccountController.updateAccount(email)
+DELETE       /deleteAccount                   controllers.AccountController.deleteAccount(email)
 
 GET          /history                   controllers.Application.loadData
 GET          /loadWishes                controllers.Application.loadWishes

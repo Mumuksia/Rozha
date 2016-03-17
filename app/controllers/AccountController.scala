@@ -23,8 +23,15 @@ class AccountController  extends Controller with Pjax with AuthElement with Auth
     Ok(jsonService.transformAccountsToJsonArray(Account.findAllDB)) 
   }
   
-  def updateAccount (email: String, role: String) = StackAction(AuthorityKey -> Administrator) { implicit request =>
-    Account.findByEmail(email)
+  def updateAccount (email: String) = StackAction(AuthorityKey -> Administrator) { implicit request =>
+    
+    println(Account.findByEmail(email).get.role)
+    Account.updateRoleAccount(email, if (Account.findByEmail(email).get.role.toString.equals("NormalUser")) "KVHost" else "NormalUser")
+    Ok(jsonService.transformAccountsToJsonArray(Account.findAllDB)) 
+  }
+  
+    def deleteAccount (email: String) = StackAction(AuthorityKey -> Administrator) { implicit request =>
+    Account.deleteAccountById(email)
     Ok(jsonService.transformAccountsToJsonArray(Account.findAllDB)) 
   }
   

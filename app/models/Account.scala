@@ -48,8 +48,24 @@ object Account {
   
   def findAllDB(): Seq[Account] = {
     DB.withConnection { implicit c =>
-      SQL("select * from ACCOUNT").
+      SQL("select * from ACCOUNT where role != 'Administrator'").
       as(allRowsListParser)
+    }
+  }
+  
+  def updateRoleAccount(email: String, role: String) = {      
+    DB.withConnection { implicit c =>
+      SQL("UPDATE Account SET role = {role} WHERE email = {email}").
+      on('role->role, 'email->email).
+      executeUpdate()
+      
+    }
+  }
+  
+  def deleteAccountById(email: String) = {
+        DB.withConnection { implicit c =>
+      SQL("delete from Account where email = {email}").on('email -> email)
+        .executeUpdate()
     }
   }
  
