@@ -1,6 +1,5 @@
 package models
 
-import services.FileService
 import play.api.libs.json.{JsArray, Json, JsValue, Reads}
 import play.api.db._
 import play.api.Play._
@@ -29,8 +28,6 @@ object Account {
   val allRowsListParser: ResultSetParser[List[Account]] = accountParser.*
   
   
-  val fileService = new FileService
-
   def authenticate(email: String, password: String): Option[Account] = {
     findByEmail(email)
   }
@@ -49,25 +46,21 @@ object Account {
     }   
   }
   
- def findAll(): Seq[Account] = {    
-   val jsUsers : Seq[JsValue] = Json.parse(fileService.readFromFile("users.txt")).as[JsArray].value
-   for(jsValue <- jsUsers) yield createAccount(jsValue)
- }
- 
   def findAllDB(): Seq[Account] = {
     DB.withConnection { implicit c =>
       SQL("select * from ACCOUNT").
       as(allRowsListParser)
     }
   }
-  
-  def create(account: Account) {
-   
+ 
+    def create(name: String, email: String, password: String, role: String){
+    DB.withConnection { implicit c =>
+      SQL("insert into ACCOUNT(name, email, password, role) values ({name}, {email}, {password}, {role})").
+        on( 'name -> name, 'email -> email, 'password -> password,
+        'role -> role).
+        executeInsert()
+    }
   }
   
-  def createAccount(jsValue: JsValue): Account ={
-    Account((jsValue \ "id").as[String].toInt, (jsValue \ "email").as[String], (jsValue \ "password").as[String], 
-            (jsValue \ "name").as[String], Role.valueOf((jsValue \ "role").as[String]))
-  }
-  
+
 }

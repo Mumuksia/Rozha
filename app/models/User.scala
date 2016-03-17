@@ -61,17 +61,17 @@ object User {
     }
   }
   
-  def createLight(clanId: String, name: String){
+  def createLight(clanId: String, name: String, status: String){
     DB.withConnection { implicit c =>
-      SQL("insert into public.User(name, status, clanId, remoteAddress) values ({name}, 'some', {clanId}, 'some')").
-        on( 'name -> name,  'clanId -> clanId).
+      SQL("insert into public.User(name, status, clanId, remoteAddress) values ({name}, {status}, {clanId}, 'some')").
+        on( 'name -> name,  'clanId -> clanId, 'status->status).
         executeInsert()
     }
   }
   
   def createLightUsers(users: Seq[User]){
       clearAllUsers
-      users.foreach(u=>if (u != null) {createLight(u.clanId, u.name)})
+      users.foreach(u=>if (u != null) {createLight(u.clanId, u.name, u.status)})
   }
   
   def clearAllUsers() {

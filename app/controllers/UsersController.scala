@@ -58,7 +58,7 @@ def loadUsersWithUser(userName: String) = Action{
 
   def parseUser(v: Vector[String]) : models.User ={
     if (!v(1).isEmpty){
-      new models.User(1, v(1), v(2), "some", "some")
+      new models.User(1, v(1), v(2), v(3), "some")
     } else {
       null
     }

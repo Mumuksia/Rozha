@@ -17,13 +17,13 @@ class Messages extends Controller with Pjax with AuthElement with AuthConfigImpl
 
   val jsonService = new JsonService
 
-  def main = StackAction(AuthorityKey -> NormalUser) { implicit request =>
+  def main = StackAction(AuthorityKey -> KVHost) { implicit request =>
     val user = loggedIn
     val title = "message main"
     Ok(html.rozha())
   }
   
-  def createReservations = StackAction(AuthorityKey -> NormalUser) { implicit request =>
+  def createReservations = StackAction(AuthorityKey -> KVHost) { implicit request =>
     Reservations.createSample()
     Ok(html.rozha())
   }

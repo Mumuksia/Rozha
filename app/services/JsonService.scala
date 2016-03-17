@@ -2,6 +2,7 @@ package services
 
 import java.io._
 import scala.io.Source
+import models.Account
 import models.Notes
 import models.Participation
 import models.Reservations
@@ -19,6 +20,8 @@ class JsonService {
   
   val JSON_KEY_Number = "Number"
   val JSON_KEY_Name = "Name"
+  val JSON_KEY_Email = "Email"
+  val JSON_KEY_Role = "Role"
   val JSON_KEY_APPROVED_BY = "ApprovedBy"
   val JSON_KEY_ID = "id"
   val JSON_KEY_NOTE = "Note"
@@ -51,6 +54,11 @@ class JsonService {
       def transformUserToJsonRow(user: User) : JsObject = {
       Json.obj(JSON_KEY_ID -> user.id.toString, JSON_KEY_Name -> user.name, JSON_KEY_STATUS -> user.status,
       JSON_KEY_CLAN_ID-> user.clanId, JSON_KEY_REMOTE_ADDRESS-> user.remoteAddress);
+    }
+    
+        def transformAccountToJsonRow(account: Account) : JsObject = {
+      Json.obj(JSON_KEY_ID -> account.id.toString, JSON_KEY_Name -> account.name, JSON_KEY_Email -> account.email,
+      JSON_KEY_Role-> account.role.toString);
     }
     
     def transformUserDTOToJsonRow(user: UserDTO) : JsObject = {
@@ -95,13 +103,17 @@ class JsonService {
     Json.obj(JSON_KEY_USERS->transformUsersDTOToJsArray(users), JSON_KEY_PENALTIES-> transformNotesToJsArray(penalties))
   }
   
+  def transformAccountsToJsonArray(accounts: Seq[Account]): JsArray = {    
+    val jsData = accounts.map( x => transformAccountToJsonRow(x)):Seq[JsObject]
+    jsData.foldLeft(JsArray())((acc, x) => acc ++ Json.arr(x))
+  }
+  
   def transformWarToJsObject(optionWar: Option[War]) : JsObject = {
     optionWar match {
       case Some(war) => Json.obj(JSON_KEY_ID -> war.id.toString, JSON_KEY_Name -> war.name, JSON_KEY_NOTE -> war.note, JSON_KEY_STATUS -> war.status, 
       JSON_KEY_SCORE -> war.score, JSON_KEY_START_DATE -> war.startdate);
       case None => null
-    }
-    
+    }    
   }
 
 }
