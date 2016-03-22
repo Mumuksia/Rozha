@@ -44,10 +44,6 @@ object Reservations {
       as(allRowsListParser)
     }
   }
-  
-  def findAll(): Seq[Reservations] = {
-      null
-  }
 
   def create(reservation: Reservations) {
     DB.withConnection { implicit c =>
@@ -57,10 +53,6 @@ object Reservations {
         executeInsert()
     }
   }
-
-  def createSample() {
-  }
-
   def clearAll(status: String) {
     DB.withConnection { implicit c =>
       SQL("update RESERVATIONS SET status = 'deleted' where status = {status}").on('status -> status)

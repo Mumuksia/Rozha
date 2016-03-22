@@ -41,7 +41,7 @@ var ParticipantBox = React.createClass({
         <h1>Хочу в кв у Вівторок</h1>        
         <ParticipantList data={this.state.data} />
         <ParticipantForm onParticipantSubmit={this.handleParticipantSubmit}/>
-        <a href="/standard/messages/cleanParticipantsForDay?day=Tuesday">clear</a>
+        <a href="/logged/cleanParticipantsForDay?day=Tuesday">clear</a>
       </div>
     );
   }

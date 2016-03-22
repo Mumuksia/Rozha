@@ -4,7 +4,7 @@ import jp.t2v.lab.play2.auth.LoginLogout
 import models.Account
 import play.api.data.Form
 import play.api.data.Forms._
-import play.api.mvc.{Action, Controller}
+import play.api.mvc.{ Action, Controller }
 import views.html
 
 import scala.concurrent.Future
@@ -27,13 +27,13 @@ class Sessions extends Controller with LoginLogout with AuthConfigImpl {
     ).removingFromSession("rememberme"))
   }
 
-  def authenticate = Action.async {     
-    implicit request =>    
-    loginForm.bindFromRequest.fold(
-      formWithErrors => Future.successful(BadRequest(html.login(formWithErrors))),
-      user           => gotoLoginSucceeded(user.get.id)
+  def authenticate = Action.async {
+    implicit request =>
+      loginForm.bindFromRequest.fold(
+        formWithErrors => Future.successful(BadRequest(html.login(formWithErrors))),
+        user => gotoLoginSucceeded(user.get.id)
 
-    )
+      )
   }
 
 }

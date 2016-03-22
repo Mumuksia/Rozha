@@ -26,8 +26,7 @@ object Account {
   val allRowsParserOption: ResultSetParser[Option[Account]] = accountParser.singleOpt
   
   val allRowsListParser: ResultSetParser[List[Account]] = accountParser.*
-  
-  
+    
   def authenticate(email: String, password: String): Option[Account] = {
     findByEmail(email)
   }

@@ -13,7 +13,7 @@ import services.JsonService
 import services.Pjax
 import views.html
 
-class Messages extends Controller with Pjax with AuthElement with AuthConfigImpl {
+class ReservationController extends Controller with Pjax with AuthElement with AuthConfigImpl {
 
   val jsonService = new JsonService
 
@@ -22,9 +22,8 @@ class Messages extends Controller with Pjax with AuthElement with AuthConfigImpl
     val title = "message main"
     Ok(html.rozha())
   }
-  
+
   def createReservations = StackAction(AuthorityKey -> KVHost) { implicit request =>
-    Reservations.createSample()
     Ok(html.rozha())
   }
 
@@ -32,17 +31,17 @@ class Messages extends Controller with Pjax with AuthElement with AuthConfigImpl
     Reservations.clearAll("accepted")
     Ok(html.rozha())
   }
-  
+
   def cleanReservationsTable = StackAction(AuthorityKey -> Administrator) { implicit request =>
     Reservations.clearAllTable()
     Ok(html.rozha())
   }
-  
+
   def cleanParticipantsForDay(day: String) = StackAction(AuthorityKey -> Administrator) { implicit request =>
     Participation.clearForDay(day)
-    Ok(html.rozha())            
+    Ok(html.rozha())
   }
-  
+
   protected val fullTemplate: User => Template = html.fullTemplate.apply
 
 }

@@ -33,11 +33,11 @@ GET          /loadParticipantsSecond    controllers.ParticipationController.load
 POST         /addParticipant            controllers.ParticipationController.addParticipant(name)
 POST         /addParticipantSecond      controllers.ParticipationController.addParticipantSecond(name)
 
-GET         /standard/messages/main               controllers.Messages.main
-GET         /standard/messages/create             controllers.Messages.createReservations
-GET         /standard/messages/clear              controllers.Messages.cleanReservations
-GET         /standard/messages/cleartable         controllers.Messages.cleanReservationsTable
-GET        /standard/messages/cleanParticipantsForDay controllers.Messages.cleanParticipantsForDay(day)
+GET         /logged/main               controllers.ReservationController.main
+GET         /logged/create             controllers.ReservationController.createReservations
+GET         /logged/clear              controllers.ReservationController.cleanReservations
+GET         /logged/cleartable         controllers.ReservationController.cleanReservationsTable
+GET         /logged/cleanParticipantsForDay controllers.ReservationController.cleanParticipantsForDay(day)
 
 GET         /login                                controllers.Sessions.login
 POST        /standard/login                       controllers.Sessions.authenticate

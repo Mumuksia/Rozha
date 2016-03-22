@@ -39,11 +39,7 @@ object User {
       as(allRowsListParser)
     }
   }
-  
-  def create(account: User) {
-   
-  }
-  
+
   def findAllByStatus(status: String): Seq[User] = {
       DB.withConnection { implicit c =>
       SQL("select * from public.User where status = {status}").

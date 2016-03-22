@@ -1,11 +1,11 @@
 package controllers
 
-import jp.t2v.lab.play2.auth.{AuthenticityToken, AsyncIdContainer, AuthConfig}
+import jp.t2v.lab.play2.auth.{ AuthenticityToken, AsyncIdContainer, AuthConfig }
 
 import play.api.mvc.RequestHeader
 import play.api.mvc.Results._
 
-import scala.concurrent.{Future, ExecutionContext}
+import scala.concurrent.{ Future, ExecutionContext }
 import scala.reflect._
 import models.Account
 import models.Role
@@ -17,7 +17,7 @@ import java.security.SecureRandom
 import scala.annotation.tailrec
 import play.api.cache.Cache
 
-trait BaseAuthConfig  extends AuthConfig {
+trait BaseAuthConfig extends AuthConfig {
 
   type Id = Int
   type User = Account
@@ -25,7 +25,7 @@ trait BaseAuthConfig  extends AuthConfig {
 
   val idTag: ClassTag[Id] = classTag[Id]
   val sessionTimeoutInSeconds = 3600
-  
+
   def resolveUser(id: Id)(implicit ctx: ExecutionContext) = Future.successful(Account.findById(id))
   def authorizationFailed(request: RequestHeader)(implicit ctx: ExecutionContext) = throw new AssertionError("don't use")
   override def authorizationFailed(request: RequestHeader, user: User, authority: Option[Authority])(implicit ctx: ExecutionContext) = {
@@ -84,8 +84,8 @@ trait BaseAuthConfig  extends AuthConfig {
     }
 
     private def store(token: AuthenticityToken, userId: Id, timeoutInSeconds: Int) {
-      GlobalMap.container.put(token + tokenSuffix, userId.asInstanceOf[AnyRef]/*, timeoutInSeconds*/) // TODO:
-      GlobalMap.container.put(userId.toString + userIdSuffix, token.asInstanceOf[AnyRef]/*, timeoutInSeconds*/) // TODO:
+      GlobalMap.container.put(token + tokenSuffix, userId.asInstanceOf[AnyRef] /*, timeoutInSeconds*/ ) // TODO:
+      GlobalMap.container.put(userId.toString + userIdSuffix, token.asInstanceOf[AnyRef] /*, timeoutInSeconds*/ ) // TODO:
     }
 
     override def prolongTimeout(token: AuthenticityToken, timeoutInSeconds: Int)(implicit request: RequestHeader, context: ExecutionContext): Future[Unit] = {
@@ -93,7 +93,6 @@ trait BaseAuthConfig  extends AuthConfig {
     }
 
   }
-
 
 }
 
