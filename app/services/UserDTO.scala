@@ -1,8 +1,6 @@
 package services
 
-import java.util.ArrayList
-import models.Notes
-import models.User
+import models.{Notes, User}
 
 case class UserDTO(id: Int, name: String, clanId: String, status: String, remoteAddress: String,
   penalties: Seq[Notes]) 

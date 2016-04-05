@@ -1,10 +1,8 @@
 package models
 
-import java.util.Date
-import play.api.db._
-import play.api.Play._
 import anorm._
-import anorm.SqlParser._
+import play.api.Play._
+import play.api.db._
 
 case class Participation(id: Int, name: String, status: String, dayofweek: String, weeknumber: String)
 

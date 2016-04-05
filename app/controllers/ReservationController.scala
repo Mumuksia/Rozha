@@ -1,16 +1,10 @@
 package controllers
 
-import models.War
-import play.api.mvc._
-import java.util.Calendar
-import jp.t2v.lab.play2.auth.AuthConfig
 import jp.t2v.lab.play2.auth.AuthElement
-import jp.t2v.lab.play2.stackc.StackableController
-import models.Participation
-import models.Reservations
+import models.{Participation, Reservations}
 import models.Role._
-import services.JsonService
-import services.Pjax
+import play.api.mvc._
+import services.{JsonService, Pjax}
 import views.html
 
 class ReservationController extends Controller with Pjax with AuthElement with AuthConfigImpl {
@@ -18,8 +12,6 @@ class ReservationController extends Controller with Pjax with AuthElement with A
   val jsonService = new JsonService
 
   def main = StackAction(AuthorityKey -> KVHost) { implicit request =>
-    val user = loggedIn
-    val title = "message main"
     Ok(html.rozha())
   }
 

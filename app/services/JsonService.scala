@@ -1,15 +1,9 @@
 package services
 
-import java.io._
-import scala.io.Source
-import models.Account
-import models.Notes
-import models.Participation
-import models.Reservations
-import models.User
-import models.War
-import play.api.libs.json.{JsArray, Json, JsObject, JsValue}
 import java.util.UUID
+
+import models.{Account, Notes, Participation, Reservations, User, War}
+import play.api.libs.json.{JsArray, JsObject, Json}
 
 /**
  * User: Muksia

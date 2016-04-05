@@ -1,10 +1,8 @@
 package models
 
-import java.util.Date
-import play.api.db._
-import play.api.Play._
 import anorm._
-import anorm.SqlParser._
+import play.api.Play._
+import play.api.db._
 
 case class Notes(id: Int, name: String, description: String, status: String, addedby: String)
 
@@ -62,4 +60,3 @@ object Notes{
 
   
 }
-  

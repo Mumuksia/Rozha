@@ -1,9 +1,8 @@
 package models
 
-import play.api.db._
-import play.api.Play._
 import anorm._
-import anorm.SqlParser._
+import play.api.Play._
+import play.api.db._
 
 case class Reservations(id: Int, name: String, number: String, status: String, warId: Int, remoteAddress: String)
 

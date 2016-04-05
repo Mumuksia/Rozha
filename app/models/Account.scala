@@ -1,10 +1,8 @@
 package models
 
-import play.api.libs.json.{JsArray, Json, JsValue, Reads}
-import play.api.db._
-import play.api.Play._
 import anorm._
-import anorm.SqlParser._
+import play.api.Play._
+import play.api.db._
 
 case class Account(id: Int, email: String, password: String, name: String, role: Role)
 

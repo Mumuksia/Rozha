@@ -7,8 +7,6 @@ GET         /                     controllers.Application.index
 
 # APIs
 GET          /loadWar                   controllers.WarController.loadReservations
-GET          /init                      controllers.WarController.initFile
-DELETE       /loadWar/:id               controllers.WarController.deleteReservation(id)
 POST         /addReservation            controllers.WarController.addReservation(name, number, approvedBy)
 POST         /startWar                  controllers.WarController.startWar(name, note)
 

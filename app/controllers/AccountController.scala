@@ -1,17 +1,10 @@
 package controllers
 
-import models.War
-import play.api.mvc._
-import java.util.Calendar
-import jp.t2v.lab.play2.auth.AuthConfig
 import jp.t2v.lab.play2.auth.AuthElement
-import jp.t2v.lab.play2.stackc.StackableController
 import models.Account
-import models.Participation
-import models.Reservations
 import models.Role._
-import services.JsonService
-import services.Pjax
+import play.api.mvc._
+import services.{JsonService, Pjax}
 import views.html
 
 class AccountController extends Controller with Pjax with AuthElement with AuthConfigImpl {
@@ -24,8 +17,12 @@ class AccountController extends Controller with Pjax with AuthElement with AuthC
   }
 
   def updateAccount(email: String) = StackAction(AuthorityKey -> Administrator) { implicit request =>
-    Account.updateRoleAccount(email, if (Account.findByEmail(email).get.role.toString.equals("NormalUser")) "KVHost" else "NormalUser")
+    Account.updateRoleAccount(email, changeAccountRole(email))
     Ok(jsonService.transformAccountsToJsonArray(Account.findAllDB))
+  }
+
+  def changeAccountRole(email: String) = {
+    if (Account.findByEmail(email).get.role.toString.equals("NormalUser")) "KVHost" else "NormalUser"
   }
 
   def deleteAccount(email: String) = StackAction(AuthorityKey -> Administrator) { implicit request =>
