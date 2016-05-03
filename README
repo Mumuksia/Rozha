@@ -1,6 +1,1 @@
-This is your new Play application
-=================================
-
-This file will be packaged with your application, when using `activator dist`.
-
-This file was modified by IntelliJ IDEA 12.1.7 for binding GitHub repository
+Scala play application with reactJS. Just to mana CoC Wars.
